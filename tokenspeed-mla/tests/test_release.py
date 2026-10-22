@@ -23,6 +23,7 @@
 import zipfile
 
 import pytest
+
 from scripts.check_release import check_release, read_version
 
 
