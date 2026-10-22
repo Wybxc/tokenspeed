@@ -24,6 +24,62 @@ from __future__ import annotations
 
 import torch
 import torch_npu
+from tokenspeed_kernel_npu._triton import tl, triton
+
+
+@triton.jit
+def _gemma_add_rmsnorm_kernel(
+    X,
+    Residual,
+    Weight,
+    Out,
+    x_stride,
+    r_stride,
+    eps,
+    WIDTH: tl.constexpr,
+    BLOCK: tl.constexpr,
+):
+    row = tl.program_id(0)
+    cols = tl.arange(0, BLOCK)
+    x = tl.load(X + row * x_stride + cols, cols < WIDTH, 0).to(tl.float32)
+    residual = tl.load(Residual + row * r_stride + cols, cols < WIDTH, 0).to(tl.float32)
+    value = x + residual
+    weight = tl.load(Weight + cols, cols < WIDTH, 0).to(tl.float32)
+    variance = tl.sum(value * value, 0) / WIDTH
+    out = value * tl.rsqrt(variance + eps) * (1.0 + weight)
+    tl.store(Residual + row * r_stride + cols, value, cols < WIDTH)
+    tl.store(Out + row * WIDTH + cols, out, cols < WIDTH)
+
+
+def gemma_add_rmsnorm(x, residual, weight, eps):
+    """Add then normalize BF16/FP32 ``[T,D]`` on one NPU, using FP32 ``1+w``.
+
+    The FP32 sum feeds the variance before rounding. Update the residual with
+    that sum rounded to its dtype; return a new output and the same residual.
+    """
+    if x.ndim != 2 or x.shape != residual.shape or weight.shape != (x.shape[1],):
+        raise ValueError("Gemma add RMSNorm expects matching [T,D] rows and [D] weight")
+    if any(t.device != x.device or t.dtype != x.dtype for t in (residual, weight)):
+        raise ValueError("Gemma add RMSNorm tensors must share dtype and device")
+    if x.device.type != "npu" or any(t.stride(-1) != 1 for t in (x, residual, weight)):
+        raise ValueError("Gemma add RMSNorm needs NPU tensors with contiguous channels")
+    block = triton.next_power_of_2(x.shape[1])
+    if block > 65536:
+        raise ValueError("Gemma RMSNorm width exceeds one reduction block")
+    out = torch.empty_like(x, memory_format=torch.contiguous_format)
+    if x.shape[0]:
+        _gemma_add_rmsnorm_kernel[(x.shape[0],)](
+            x,
+            residual,
+            weight,
+            out,
+            x.stride(0),
+            residual.stride(0),
+            eps,
+            WIDTH=x.shape[1],
+            BLOCK=block,
+        )
+    return out, residual
 
 
 def rmsnorm(

@@ -1041,7 +1041,11 @@ class Qwen3_5ForCausalLM(nn.Module):
         # signaling; at decode the join alone idles the GPU for about 15 us
         # per MoE layer, longer than the shared expert takes, so it runs
         # inline there.
-        alt_stream = None if current_platform().is_amd else torch.cuda.Stream()
+        alt_stream = (
+            torch.cuda.Stream()
+            if current_platform().is_nvidia and config.model_type == "qwen3_5_moe_text"
+            else None
+        )
 
         # Embedding layer
         self.embed_tokens = VocabParallelEmbedding(

@@ -82,6 +82,35 @@ def mha_prefill(
         sinks=sinks,
         return_lse=return_lse,
     )
+    if q.shape[-1] == 256:
+        # CANN 9's TND FIA path accepts only D=64/128/192. Its BSH path
+        # supports Qwen3.5's D=256; separate packed requests using the
+        # existing host bounds, keeping Q/K/V and all attention math on NPU.
+        output = torch.empty_like(q)
+        for start, end in zip(cu_seqlens_cpu[:-1], cu_seqlens_cpu[1:]):
+            length = end - start
+            if not length:
+                continue
+            if length <= 2048:
+                mask = _causal_mask(q.device)[:length, :length]
+            else:
+                mask = torch.triu(
+                    torch.ones((length, length), dtype=torch.bool, device=q.device),
+                    diagonal=1,
+                )
+            rows, _ = torch_npu.npu_fused_infer_attention_score(
+                q[start:end].reshape(1, length, -1),
+                k[start:end].reshape(1, length, -1),
+                v[start:end].reshape(1, length, -1),
+                atten_mask=mask,
+                num_heads=q.shape[1],
+                num_key_value_heads=k.shape[1],
+                scale=_scale(q, softmax_scale),
+                input_layout="BSH",
+                sparse_mode=0,
+            )
+            output[start:end].copy_(rows.reshape_as(q[start:end]))
+        return output
     output, _ = torch_npu.npu_fused_infer_attention_score(
         q,
         k,

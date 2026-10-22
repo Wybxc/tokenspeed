@@ -17,10 +17,10 @@ source availability, dispatch availability, and actual hardware validation.
 | Embedding / tied LM head | IDs `[T]` → `[T,1024]`; final logits `[B,248320]` | Existing TokenSpeed embedding, dense PyTorch GEMM | Existing NPU path | Fixed-weight model logits and generation |
 | QKV and GDN projections | `[T,1024]` → packed head/gate rows | Existing unquantized linear layers | Existing NPU path | Weight shapes and model comparison |
 | MLP / SwiGLU | `[T,1024]` → `[T,2×3584]` → `[T,3584]` → `[T,1024]` | Existing GEMM and registered Ascend activation | Existing NPU path | Numerical module and model comparison |
-| Gemma RMSNorm | BF16 `[T,1024]`, FP32 variance, weight offset `1+w` | Existing Ascend norm | Existing NPU path | NPU norm tests; end-to-end logits |
-| Gated RMSNorm | `[T,16,128]` plus gate, SiLU then norm | Existing GDN normalization | Source available; needs hardware check | Target-shape independent reference |
+| Gemma RMSNorm | BF16 `[T,1024]`, FP32 variance, weight offset `1+w` | Reused grouped Gemma norm; new Ascend fused residual add norm | 8 NPU tests passed | CPU FP64 reference; empty and large rows; exact residual writes |
+| Gated RMSNorm | `[T,16,128]` plus gate, SiLU then norm | Existing GDN Triton normalization with device-neutral context | 6 NPU tests passed | Target-shape CPU FP64 reference, both gate orders |
 | QK norm / partial RoPE | Q `[T,8,256]`, K `[T,2,256]`; 64 rotary channels | Existing composite attention prologue | Existing NPU path | RoPE tests and model comparison |
-| Causal GQA / KV write | Q as above; K/V cache `[slots,2,256]` | Existing Ascend MHA and common cache management | Existing NPU path | Prefill and repeated decode comparison |
+| Causal GQA / KV write | Q as above; K/V cache `[slots,2,256]` | Existing Ascend FIA; added BSH prefill layout for D=256 | 8 eager MHA tests passed | FP64 attention at lengths 1, packed 3/5, 128, 2048; paged decode |
 | Causal depthwise convolution | Packed `[6144,T]` → same; window `[P,6144,3]` | Existing common Triton convolution | 19 NPU tests passed | Window boundaries, segmented input, read/write remapping |
 | GDN gate | `a,b [T,16]`, `A_log,dt_bias [16]` → log decay/beta | Existing prefill gate; fused into new Ascend decode scan | Added decode implementation | CPU FP64 gate/recurrence comparison |
 | GDN scan | Q/K/V `[1,T,16,128]` → `[1,T,16,128]`; state `[P,16,128,128]` | New Ascend tiled serial recurrence, registered through common kernel package | 20 NPU tests passed | FP64 reference, irregular lengths, grouped/non-square heads, multi-step state and isolation |
@@ -55,6 +55,13 @@ The serial recurrence is a correctness baseline. Its long-input cost must be
 measured before considering a parallel/chunked optimization. ACL Graph,
 prefix reuse and speculative execution require independent validation before
 being advertised as supported by this adaptation.
+
+CANN 9 rejects head dimension 256 in its TND prefill interface. The added
+path views each packed sequence as BSH and calls the same vendor FIA operator
+with an explicit causal mask. Query, key, value and all attention math remain
+on NPU. The existing BSH paged decode already supports D=256. Cache-backed
+TND extend at D=256 is not validated; this configuration disables prefix reuse
+and uses one whole prefill (up to 4094 input tokens), followed by decode.
 
 The Qwen GDN convolution window is `[page,channel,width-1]`, as declared by
 `LinearAttnConfig.conv_state_shape`; the `[slot,R,D]` ring described by the

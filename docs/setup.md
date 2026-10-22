@@ -114,4 +114,25 @@ OpenSSL headers/libraries because the system development headers are absent.
 No scheduler version bump or system installation is needed.
 `compressed-tensors==0.15.0` supports PyTorch 2.9; newer releases require 2.10.
 The measured package snapshot is `results/ascend-environment.json`.
-Model launch and performance commands will follow after integration validation.
+Install the local NPU package and the HTTP control dependency:
+
+```bash
+PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
+  python -m pip install --no-deps -e tokenspeed-kernel-npu
+python -m pip install -i https://mirrors.huaweicloud.com/repository/pypi/simple uvicorn
+python test/ci_system/verify_triton_ascend.py
+OMP_NUM_THREADS=4 pytest -q test/runtime/layers/test_ascend_gemma_norm.py
+OMP_NUM_THREADS=4 pytest -q tokenspeed-kernel-npu/test/test_mha.py -k 'not npugraph'
+ASCEND_RT_VISIBLE_DEVICES=7 scripts/serve_qwen35.sh /tmp/hw1-qwen35-model 31957
+```
+
+The checks passed: Triton verification, 14 norm tests and 8 eager MHA tests
+(the separate NPUGraph test is deliberately deselected). The server reached
+`ts serve ready` on localhost port 31957. Two sequential OpenAI chat requests
+worked: `17 + 25` returned `42` and EOS after 3 tokens, and a Chinese explanation
+generated 64 tokens. The launcher uses all 24 text layers, BF16 weights and
+activations, FP32 recurrent state, eager execution and greedy sampling.
+Prefix reuse, KV offload and retraction snapshots are explicitly disabled.
+The small single-request cache otherwise rounds its default snapshot pool
+down to zero whole blocks and refuses startup. End-to-end numerical comparison
+and performance commands will follow after their validation.

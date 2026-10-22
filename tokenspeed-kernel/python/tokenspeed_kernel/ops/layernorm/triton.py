@@ -1478,7 +1478,7 @@ def triton_gated_rmsnorm(
     num_warps = min(max(BLOCK_N // 256, 1), 8)
     block_m = GATED_RMSNORM_ROWS_PER_PROGRAM if num_warps == 1 else 1
     grid = (triton.cdiv(M, block_m), ngroups)
-    with torch.cuda.device(x.device.index):
+    with torch.get_device_module(x.device).device(x.device.index):
         gated_rmsnorm_kernel[grid](
             x,
             out,

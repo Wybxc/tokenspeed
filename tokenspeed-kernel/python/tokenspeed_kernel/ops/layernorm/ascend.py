@@ -21,6 +21,7 @@
 """Ascend layernorm kernels."""
 
 import torch
+from tokenspeed_kernel_npu.ops.layernorm import gemma_add_rmsnorm
 from tokenspeed_kernel_npu.ops.layernorm import qk_rmsnorm as _npu_qk_rmsnorm
 from tokenspeed_kernel_npu.ops.layernorm import rmsnorm
 

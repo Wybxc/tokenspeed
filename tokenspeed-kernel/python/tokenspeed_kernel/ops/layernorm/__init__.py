@@ -114,6 +114,34 @@ def rmsnorm(
     return _rmsnorm(x, weight, eps, out=out)
 
 
+def gemma_add_rmsnorm(
+    x: torch.Tensor, residual: torch.Tensor, weight: torch.Tensor, eps: float
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Normalize the FP32 residual sum with FP32 ``1+weight``; update residual.
+
+    Inputs are ``[T,D]`` rows and ``[D]`` checkpoint offsets on one device.
+    Output and updated residual round to the input dtype.
+    """
+    if _platform.is_npu:
+        from tokenspeed_kernel.ops.layernorm.ascend import gemma_add_rmsnorm as impl
+
+        return impl(x, residual, weight, eps)
+    add_rmsnorm(
+        x,
+        residual,
+        weight,
+        eps,
+        x2=None,
+        out=x,
+        out_fp8=None,
+        fp8_scale=None,
+        out_fp4=None,
+        fp4_scale=None,
+        gemma=True,
+    )
+    return x, residual
+
+
 def qk_rmsnorm(
     q: torch.Tensor,
     k: torch.Tensor,
@@ -139,7 +167,7 @@ def grouped_gemma_rmsnorm(
     """Apply Gemma RMSNorm independently to last-dimension groups.
 
     Args:
-        x: GPU input shaped ``[..., width]``.
+        x: GPU or NPU input shaped ``[..., width]``.
         weight: Gemma checkpoint weight offset shaped ``[width]``; the
             effective multiplier is ``1 + weight``.
         group_size: Elements sharing one variance statistic. ``None`` means
@@ -150,8 +178,8 @@ def grouped_gemma_rmsnorm(
     Returns:
         Normalized tensor matching ``x`` shape and dtype.
     """
-    if not x.is_cuda:
-        raise ValueError("grouped_gemma_rmsnorm requires GPU tensors")
+    if not x.is_cuda and x.device.type != "npu":
+        raise ValueError("grouped_gemma_rmsnorm requires GPU or NPU tensors")
     width = int(x.shape[-1])
     effective_group_size = width if group_size is None else int(group_size)
     return _grouped_gemma_rmsnorm(x, weight, effective_group_size, eps, out=out)

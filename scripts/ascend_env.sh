@@ -25,6 +25,12 @@ if [[ -z "${ASCEND_RT_VISIBLE_DEVICES:-}" || "${ASCEND_RT_VISIBLE_DEVICES}" == *
     return 1
 fi
 source .venv/bin/activate
+# CANN's script expands optional variables, including under a caller's `set -u`.
+_ascend_env_nounset=false
+[[ "$-" == *u* ]] && _ascend_env_nounset=true
+set +u
 source /usr/local/Ascend/cann-9.0.0/set_env.sh
+if $_ascend_env_nounset; then set -u; fi
+unset _ascend_env_nounset
 export PYTHONPATH="${PWD}/python:${PWD}/tokenspeed-kernel/python:${PWD}/tokenspeed-kernel-npu/python:${PYTHONPATH:-}"
 export TOKENIZERS_PARALLELISM=false

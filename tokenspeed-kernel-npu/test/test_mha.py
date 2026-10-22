@@ -120,10 +120,11 @@ def test_mha_extend_with_paged_cache() -> None:
     torch.testing.assert_close(output, torch.cat(expected), atol=2e-2, rtol=2e-2)
 
 
-def test_mha_decode_with_paged_cache() -> None:
+@pytest.mark.parametrize("head_dim", [64, 256])
+def test_mha_decode_with_paged_cache(head_dim) -> None:
     page_size = 128
-    q = torch.randn(2, 4, 64, dtype=torch.bfloat16, device="npu")
-    k_cache = torch.randn(4, page_size, 2, 64, dtype=torch.bfloat16, device="npu")
+    q = torch.randn(2, 8, head_dim, dtype=torch.bfloat16, device="npu")
+    k_cache = torch.randn(4, page_size, 2, head_dim, dtype=torch.bfloat16, device="npu")
     v_cache = torch.randn_like(k_cache)
     page_table = torch.tensor([[0, 0], [1, 2]], dtype=torch.int32, device="npu")
     cache_lengths = torch.tensor([5, 70], dtype=torch.int32, device="npu")
@@ -144,6 +145,50 @@ def test_mha_decode_with_paged_cache() -> None:
     )
 
     torch.testing.assert_close(output, expected, atol=2e-2, rtol=2e-2)
+
+
+@pytest.mark.parametrize("lengths", [[1], [3, 0, 5], [128], [2048]])
+def test_qwen35_mha_prefill_fp64_reference(lengths) -> None:
+    """D=256 GQA, including packed isolation and the performance input sizes."""
+    torch.manual_seed(2026)
+    total = sum(lengths)
+    q = torch.randn(total, 8, 256, dtype=torch.bfloat16, device="npu")
+    k = torch.randn(total, 2, 256, dtype=torch.bfloat16, device="npu")
+    v = torch.randn_like(k)
+    bounds = [0]
+    for length in lengths:
+        bounds.append(bounds[-1] + length)
+    output = mha_prefill(
+        q,
+        k,
+        v,
+        torch.tensor(bounds, device="npu", dtype=torch.int32),
+        bounds,
+        max(lengths),
+    )
+    expected = []
+    for start, end in zip(bounds[:-1], bounds[1:]):
+        if end == start:
+            continue
+        query = q[start:end].cpu().double().transpose(0, 1)
+        key = k[start:end].cpu().double().repeat_interleave(4, dim=1).transpose(0, 1)
+        value = v[start:end].cpu().double().repeat_interleave(4, dim=1).transpose(0, 1)
+        expected.append(
+            torch.nn.functional.scaled_dot_product_attention(
+                query,
+                key,
+                value,
+                is_causal=True,
+            ).transpose(0, 1)
+        )
+    # BF16 output rounding plus the vendor attention reduction, against an
+    # unrounded FP64 reference; independently guard both absolute and RMS error.
+    reference = torch.cat(expected)
+    actual = output.cpu().double()
+    torch.testing.assert_close(actual, reference, atol=5e-3, rtol=5e-3)
+    assert (actual - reference).square().mean().sqrt() < (
+        5e-3 * reference.square().mean().sqrt() + 1e-5
+    )
 
 
 def test_mha_decode_npugraph_updates_sequence_lengths() -> None:
