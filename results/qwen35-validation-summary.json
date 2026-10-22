@@ -1,0 +1,84 @@
+{
+  "runtime_commit": "d1e18ef1716c21890b458f35fd23761be2508756",
+  "base_commit": "b8137dd1e8b9b054e00d5bc9519e6f3dd0ca492a",
+  "execution": "single physical chip 7, logical npu:0, world size 1, batch 1, FP16 compute/KV/conv and FP32 GDN state, eager, no prefix/offload/speculation",
+  "operator_tests": {
+    "passed": 126,
+    "deselected": 1,
+    "warnings": 6,
+    "seconds": 98.32,
+    "command": "pytest -q test/runtime/layers/test_ascend_gemma_norm.py tokenspeed-kernel-npu/test/test_gdn.py tokenspeed-kernel-npu/test/test_causal_conv.py tokenspeed-kernel-npu/test/test_mha.py tokenspeed-kernel-npu/test/test_layernorm.py tokenspeed-kernel-npu/test/test_rotary_embedding.py -k 'not npugraph'",
+    "log": "/tmp/hw1-qwen35-operator-suite.log"
+  },
+  "config_tests": {
+    "passed": 195,
+    "subtests_passed": 74,
+    "skipped": 2,
+    "warnings": 5,
+    "seconds": 6.6,
+    "skip_reason": "existing CUDA-only allocation tests",
+    "command": "pytest -q test/runtime/test_cache_setup.py test/runtime/test_cli_config_compat.py",
+    "log": "/tmp/hw1-qwen35-config-tests.log"
+  },
+  "full_model": {
+    "reference_steps": 163,
+    "vocabulary": 248320,
+    "greedy_agreement": 1.0,
+    "independent_process_steps": 227,
+    "independent_process_bitwise_equal": true,
+    "normal_eos": true,
+    "result": "qwen35-correctness.json"
+  },
+  "benchmark": {
+    "warmups_per_grid": 3,
+    "formal_requests_per_grid": 10,
+    "grid": [
+      [
+        128,
+        32
+      ],
+      [
+        128,
+        128
+      ],
+      [
+        2048,
+        32
+      ],
+      [
+        2048,
+        128
+      ]
+    ],
+    "token_counts_crosschecked": true,
+    "results": [
+      "qwen35-benchmark.json",
+      "qwen35-benchmark.csv"
+    ]
+  },
+  "profile": {
+    "input_lengths": [
+      128,
+      2048
+    ],
+    "phases": [
+      "prefill",
+      "first decode"
+    ],
+    "warmups_per_length": 3,
+    "result": "qwen35-profile.json",
+    "raw_data": "/tmp/hw1-qwen35-profile-v2"
+  },
+  "http": {
+    "validated": true,
+    "result": "qwen35-http-smoke.json"
+  },
+  "known_limits": [
+    "text-only",
+    "batch one",
+    "eager only",
+    "no prefix reuse or cache-backed extend prefill",
+    "no ACL Graph verification"
+  ],
+  "experiment_script_changes": "Streaming delta token accounting and explicit observer options corrected in the same commit as these benchmark results; runtime math unchanged."
+}

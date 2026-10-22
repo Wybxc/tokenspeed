@@ -46,6 +46,7 @@ def install() -> None:
     original_load = Qwen3_5ForConditionalGeneration.load_weights
     current_request = None
     step = 0
+    layer_values = {}
 
     @functools.wraps(original_load)
     def audited_load(self, weights):
@@ -84,11 +85,10 @@ def install() -> None:
 
             def trace_layer(index):
                 def hook(module, inputs, output):
-                    if getattr(self, "_trace_values", None) is not None:
-                        hidden, residual = output
-                        self._trace_values[str(index)] = (
-                            (hidden + residual).detach().float().cpu()
-                        )
+                    hidden, residual = output
+                    layer_values[str(index)] = (
+                        (hidden + residual).detach().float().cpu()
+                    )
 
                 return hook
 
@@ -129,8 +129,14 @@ def install() -> None:
                     torch_npu.profiler.ProfilerActivity.CPU,
                     torch_npu.profiler.ProfilerActivity.NPU,
                 ],
+                schedule=torch_npu.profiler.schedule(
+                    wait=0, warmup=0, active=1, repeat=1
+                ),
                 record_shapes=True,
                 with_stack=False,
+                experimental_config=torch_npu.profiler._ExperimentalConfig(
+                    export_type=torch_npu.profiler.ExportType.Text
+                ),
                 on_trace_ready=torch_npu.profiler.tensorboard_trace_handler(
                     str(request_dir / f"profile-{step}")
                 ),
@@ -138,13 +144,14 @@ def install() -> None:
             profiler.start()
         started = time.perf_counter()
         if os.environ.get("QWEN35_LAYER_TRACE"):
-            self.model._trace_values = {}
+            layer_values.clear()
         start_event.record()
         output = original_forward(self, ctx, input_ids, positions, *args, **kwargs)
         end_event.record()
         torch.npu.synchronize()
         wall_ms = (time.perf_counter() - started) * 1000
         if profiler is not None:
+            profiler.step()
             profiler.stop()
         assert output.next_token_logits.device.type == "npu"
         record = dict(
@@ -170,9 +177,7 @@ def install() -> None:
                 request_dir / f"{step:04d}.pt",
             )
             if os.environ.get("QWEN35_LAYER_TRACE"):
-                torch.save(
-                    self.model._trace_values, request_dir / f"layers-{step:04d}.pt"
-                )
+                torch.save(layer_values, request_dir / f"layers-{step:04d}.pt")
         step += 1
         return output
 

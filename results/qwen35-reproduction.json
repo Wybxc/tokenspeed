@@ -1,0 +1,14 @@
+{
+  "independent_process_reproduction": true,
+  "compared_forward_steps": 227,
+  "compared_tensors": [
+    "input_ids",
+    "positions",
+    "logits"
+  ],
+  "bitwise_equal": true,
+  "reference_acceptance_file": "results/qwen35-correctness.json",
+  "original_captures": "/tmp/hw1-qwen35-fp16-validation-v3",
+  "fresh_captures": "/tmp/hw1-qwen35-final-validation",
+  "streaming_token_accounting": "sum of delta IDs equals completion_tokens and forward count for every request"
+}

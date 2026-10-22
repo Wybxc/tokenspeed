@@ -51,7 +51,7 @@ def prompt_ids(tokenizer, length):
     return (pattern * (length // len(pattern) + 1))[:length]
 
 
-def request(engine, root, name, ids, count, mode="capture", ignore_eos=True):
+def request(engine, root, name, ids, count, *, mode, ignore_eos):
     if (root / name).exists():
         raise FileExistsError("Use a fresh --work-dir for each experiment run")
     control = root / "active.json"
@@ -75,8 +75,11 @@ def request(engine, root, name, ids, count, mode="capture", ignore_eos=True):
         json.loads(line)
         for line in (root / name / "steps.jsonl").read_text().splitlines()
     ]
-    assert final["meta_info"]["completion_tokens"] == len(final["output_ids"])
-    assert len(steps) == len(final["output_ids"])
+    # Engine streaming frames carry delta IDs but cumulative text/usage.
+    output_ids = [token for frame in frames for token in frame["output_ids"]]
+    assert final["meta_info"]["completion_tokens"] == len(output_ids)
+    assert len(steps) == len(output_ids)
+    final["output_ids"] = output_ids
     result = dict(
         id=name,
         input_tokens=len(ids),
@@ -93,6 +96,21 @@ def request(engine, root, name, ids, count, mode="capture", ignore_eos=True):
         flush=True,
     )
     return result
+
+
+def compact_trial(trial, root):
+    """Keep request evidence in Git and per-forward records in the work directory."""
+    record = {key: value for key, value in trial.items() if key != "steps"}
+    steps = trial["steps"]
+    record.update(
+        forward_count=len(steps),
+        steps_file=str(root / trial["id"] / "steps.jsonl"),
+        prefill_forward_ms=steps[0]["wall_ms"],
+        decode_forward_median_ms=statistics.median(s["wall_ms"] for s in steps[1:]),
+        peak_allocated_bytes=max(s["peak_allocated"] for s in steps),
+        peak_reserved_bytes=max(s["peak_reserved"] for s in steps),
+    )
+    return record
 
 
 def compare_reference(args, captures, tokenizer):
@@ -200,7 +218,7 @@ def compare_reference(args, captures, tokenizer):
                 ref_argmax.append(int(expected_logits.argmax()))
                 actual_argmax.append(int(actual.argmax()))
                 print(capture["id"], errors[-1], flush=True)
-                if not getattr(args, "diagnostic", False):
+                if not args.diagnostic:
                     assert rms <= 0.10 and maximum <= 0.75 and cosine >= 0.999, errors[
                         -1
                     ]
@@ -267,11 +285,19 @@ def main():
                         f"length-{length}",
                         prompt_ids(tokenizer, length),
                         32,
+                        mode="capture",
+                        ignore_eos=True,
                     )
                 )
             # Reusing the same slot after unrelated histories must reproduce B exactly.
             repeated = request(
-                engine, root, "length-128-repeat", prompt_ids(tokenizer, 128), 32
+                engine,
+                root,
+                "length-128-repeat",
+                prompt_ids(tokenizer, 128),
+                32,
+                mode="capture",
+                ignore_eos=True,
             )
             for first, second in zip(
                 sorted((root / "length-128").glob("[0-9][0-9][0-9][0-9].pt")),
@@ -285,7 +311,13 @@ def main():
                 )
             captures.append(repeated)
             repeated = request(
-                engine, root, "length-1-repeat", prompt_ids(tokenizer, 1), 32
+                engine,
+                root,
+                "length-1-repeat",
+                prompt_ids(tokenizer, 1),
+                32,
+                mode="capture",
+                ignore_eos=True,
             )
             for first, second in zip(
                 sorted((root / "length-1").glob("[0-9][0-9][0-9][0-9].pt")),
@@ -309,7 +341,15 @@ def main():
                     return_dict=False,
                 )
                 captures.append(
-                    request(engine, root, f"chat-{i}", ids, 64, ignore_eos=False)
+                    request(
+                        engine,
+                        root,
+                        f"chat-{i}",
+                        ids,
+                        64,
+                        mode="capture",
+                        ignore_eos=False,
+                    )
                 )
             assert captures[-1]["output"]["text"].strip() == "42"
             assert (
@@ -322,17 +362,30 @@ def main():
                 captures=captures,
             )
         elif args.mode == "profile":
-            output = [
-                request(
-                    engine,
-                    root,
-                    f"profile-{length}",
-                    prompt_ids(tokenizer, length),
-                    4,
-                    mode="profile",
+            output = []
+            for length in (128, 2048):
+                ids = prompt_ids(tokenizer, length)
+                for repeat in range(3):
+                    request(
+                        engine,
+                        root,
+                        f"profile-warmup-{length}-{repeat}",
+                        ids,
+                        4,
+                        mode="timing",
+                        ignore_eos=True,
+                    )
+                output.append(
+                    request(
+                        engine,
+                        root,
+                        f"profile-{length}",
+                        ids,
+                        4,
+                        mode="profile",
+                        ignore_eos=True,
+                    )
                 )
-                for length in (128, 2048)
-            ]
         else:
             trials = []
             for length in (128, 2048):
@@ -345,6 +398,7 @@ def main():
                             prompt_ids(tokenizer, length),
                             count,
                             mode="timing",
+                            ignore_eos=True,
                         )
                         assert len(trial["steps"]) == count, trial
                         trial["warmup"] = repeat < 3
@@ -392,7 +446,7 @@ def main():
                 repeats=10,
                 weight_audit=json.loads((root / "weight-audit.json").read_text()),
                 summaries=summaries,
-                trials=trials,
+                trials=[compact_trial(trial, root) for trial in trials],
             )
     Path(args.output).write_text(
         json.dumps(output, indent=2, ensure_ascii=False) + "\n"

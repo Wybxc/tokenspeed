@@ -1,0 +1,156 @@
+[
+  {
+    "id": "profile-128",
+    "input_tokens": 128,
+    "requested_output_tokens": 4,
+    "output": {
+      "text": " state must preserve information",
+      "output_ids": [
+        1528,
+        1902,
+        20480,
+        1928
+      ],
+      "meta_info": {
+        "id": "af0ce4e3178149a3ac712a7a29f11766",
+        "finish_reason": {
+          "type": "length",
+          "length": 4
+        },
+        "prompt_tokens": 128,
+        "weight_version": "default",
+        "completion_tokens": 4,
+        "cached_tokens": 0,
+        "e2e_latency": 7.784738779067993
+      },
+      "output_extra_info": {
+        "decode_prefix_len": 0
+      }
+    },
+    "wall_seconds": 7.785204820102081,
+    "ttft_ms": 3970.77711019665,
+    "steps": [
+      {
+        "step": 0,
+        "mode": "EXTEND",
+        "tokens": 128,
+        "wall_ms": 132.05037009902298,
+        "event_span_ms": 131.56869506835938,
+        "allocated": 1960872448,
+        "reserved": 2369781760,
+        "peak_allocated": 2038778368,
+        "peak_reserved": 2369781760
+      },
+      {
+        "step": 1,
+        "mode": "DECODE",
+        "tokens": 1,
+        "wall_ms": 56.025650119408965,
+        "event_span_ms": 55.7375602722168,
+        "allocated": 1960870400,
+        "reserved": 2369781760,
+        "peak_allocated": 2038778368,
+        "peak_reserved": 2369781760
+      },
+      {
+        "step": 2,
+        "mode": "DECODE",
+        "tokens": 1,
+        "wall_ms": 41.21801001019776,
+        "event_span_ms": 41.089141845703125,
+        "allocated": 1960870400,
+        "reserved": 2369781760,
+        "peak_allocated": 2038778368,
+        "peak_reserved": 2369781760
+      },
+      {
+        "step": 3,
+        "mode": "DECODE",
+        "tokens": 1,
+        "wall_ms": 38.31648989580572,
+        "event_span_ms": 38.210880279541016,
+        "allocated": 1960870400,
+        "reserved": 2369781760,
+        "peak_allocated": 2038778368,
+        "peak_reserved": 2369781760
+      }
+    ]
+  },
+  {
+    "id": "profile-2048",
+    "input_tokens": 2048,
+    "requested_output_tokens": 4,
+    "output": {
+      "text": ". Explain the result",
+      "output_ids": [
+        13,
+        79091,
+        279,
+        1067
+      ],
+      "meta_info": {
+        "id": "ee116e59eeaf46a7b5eeefed1981b532",
+        "finish_reason": {
+          "type": "length",
+          "length": 4
+        },
+        "prompt_tokens": 2048,
+        "weight_version": "default",
+        "completion_tokens": 4,
+        "cached_tokens": 0,
+        "e2e_latency": 8.608123064041138
+      },
+      "output_extra_info": {
+        "decode_prefix_len": 0
+      }
+    },
+    "wall_seconds": 8.608778740046546,
+    "ttft_ms": 4749.862120021135,
+    "steps": [
+      {
+        "step": 0,
+        "mode": "EXTEND",
+        "tokens": 2048,
+        "wall_ms": 988.6980601586401,
+        "event_span_ms": 988.3009033203125,
+        "allocated": 1960874496,
+        "reserved": 2369781760,
+        "peak_allocated": 2167997952,
+        "peak_reserved": 2369781760
+      },
+      {
+        "step": 1,
+        "mode": "DECODE",
+        "tokens": 1,
+        "wall_ms": 53.76593000255525,
+        "event_span_ms": 53.33980178833008,
+        "allocated": 1960870400,
+        "reserved": 2369781760,
+        "peak_allocated": 2167997952,
+        "peak_reserved": 2369781760
+      },
+      {
+        "step": 2,
+        "mode": "DECODE",
+        "tokens": 1,
+        "wall_ms": 46.179489931091666,
+        "event_span_ms": 45.976158142089844,
+        "allocated": 1960870400,
+        "reserved": 2369781760,
+        "peak_allocated": 2167997952,
+        "peak_reserved": 2369781760
+      },
+      {
+        "step": 3,
+        "mode": "DECODE",
+        "tokens": 1,
+        "wall_ms": 38.83886989206076,
+        "event_span_ms": 38.680538177490234,
+        "allocated": 1960870400,
+        "reserved": 2369781760,
+        "peak_allocated": 2167997952,
+        "peak_reserved": 2369781760
+      }
+    ]
+  }
+]

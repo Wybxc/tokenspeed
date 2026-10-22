@@ -158,9 +158,9 @@ pytest -q test/runtime/layers/test_ascend_gemma_norm.py \
   tokenspeed-kernel-npu/test/test_rotary_embedding.py -k 'not npugraph'
 pytest -q test/runtime/test_cache_setup.py test/runtime/test_cli_config_compat.py
 python scripts/qwen35_experiment.py validate --model /tmp/hw1-qwen35-model \
-  --work-dir /tmp/hw1-qwen35-fp16-validation-v3 --output results/qwen35-generation.json
+  --work-dir /tmp/hw1-qwen35-final-validation --output results/qwen35-generation.json
 python scripts/qwen35_experiment.py compare --model /tmp/hw1-qwen35-model \
-  --work-dir /tmp/hw1-qwen35-fp16-validation-v3 --output results/qwen35-correctness.json
+  --work-dir /tmp/hw1-qwen35-final-validation --output results/qwen35-correctness.json
 ```
 
 Use a fresh work directory for each `validate` run; `compare` reads that run's
@@ -174,3 +174,53 @@ Two repeated requests (1 and 128 input tokens) additionally require bitwise
 equal logits at all 32 steps after unrelated requests. Normal EOS is checked
 separately from fixed-length `ignore_eos` trials. Large logits are outside Git
 in the specified work directory; the small summaries are under `results/`.
+
+An independent fresh process repeated all 227 captured forwards (including
+the two repeated requests). Inputs, positions and every logit were bitwise
+equal to the previously accepted run; see `results/qwen35-reproduction.json`.
+The experiment accumulates delta token IDs from every streaming frame and
+checks the total against both completion usage and the number of forwards.
+
+The following four-grid benchmark and separate profiler runs completed:
+
+```bash
+export ASCEND_RT_VISIBLE_DEVICES=7 OMP_NUM_THREADS=4
+source scripts/ascend_env.sh
+python scripts/qwen35_experiment.py benchmark --model /tmp/hw1-qwen35-model \
+  --work-dir /tmp/hw1-qwen35-benchmark-v2 --output results/qwen35-benchmark.json
+python scripts/qwen35_experiment.py profile --model /tmp/hw1-qwen35-model \
+  --work-dir /tmp/hw1-qwen35-profile-v2 --output results/qwen35-profile-requests.json
+python scripts/qwen35_profile_summary.py --work-dir /tmp/hw1-qwen35-profile-v2 \
+  --output results/qwen35-profile.json
+```
+
+Use fresh directories on subsequent runs. Run measurements alone on the
+selected chip; do not overlap operator tests or profiler with benchmarks.
+Each input/output pair (128/32, 128/128, 2048/32, 2048/128) has three warmups
+and ten formal requests. The profiler separately warms each shape three times
+before recording one prefill and one decode, with an explicit completed
+profiler step. Its internal zero-warmup schedule warning refers to the
+single recorded step, not the preceding model warmups.
+All 18 GDN and six full-attention kernels are present in each trace.
+Device transfer events, layout/cast kernels and device busy interval union
+are reported separately; profiler times are not substituted for benchmark
+latencies. See [the report](ascend-qwen35-report.md) for definitions and results.
+
+For the final FP16 HTTP check, start the launcher in one terminal and wait for
+`ts serve ready`. Run the smoke test in another terminal, then stop the
+launcher with Ctrl-C:
+
+```bash
+ASCEND_RT_VISIBLE_DEVICES=7 scripts/serve_qwen35.sh /tmp/hw1-qwen35-model 31957
+```
+
+```bash
+python3 scripts/qwen35_http_smoke.py --base-url http://127.0.0.1:31957/v1 \
+  --output results/qwen35-http-smoke.json
+```
+
+This clean-process FP16 launch returned `42` with normal EOS after three
+tokens, then generated 64 Chinese tokens in the next request. The large
+profiler traces/logits stay outside Git. The upstream Engine can print pending
+async task messages during context-manager shutdown; the experiments exited
+successfully after writing their checked results.

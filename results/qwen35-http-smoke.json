@@ -1,0 +1,89 @@
+{
+  "base_url": "http://127.0.0.1:31957/v1",
+  "validated": true,
+  "cases": [
+    {
+      "prompt": "What is 17 + 25? Answer briefly.",
+      "wall_seconds": 0.23289298987947404,
+      "response": {
+        "id": "chatcmpl-olui021dxZGyaOd2MKeG7J7b-01a1620b-8eec-71e9-a936-82a0446cf6ab",
+        "object": "chat.completion",
+        "created": 1792646287,
+        "model": "qwen35-08b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "42",
+              "refusal": null,
+              "annotations": [],
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "matched_stop": 248046
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 25,
+          "completion_tokens": 3,
+          "total_tokens": 28,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "system_fingerprint": "default",
+        "service_tier": "default"
+      }
+    },
+    {
+      "prompt": "用中文解释什么是递推状态。",
+      "wall_seconds": 2.766228209948167,
+      "response": {
+        "id": "chatcmpl-12jdv33nf9j79py1jevY9GCN-01a1620b-8fd3-7202-ab1b-3c8217a59fec",
+        "object": "chat.completion",
+        "created": 1792646287,
+        "model": "qwen35-08b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "**递推状态**（Recursive State）是计算机科学、人工智能以及控制理论中的一个核心概念，主要用于描述**状态机**（State Machine）或**递归算法**中的状态是如何被定义和更新的。\n\n简单来说，它指的是在系统运行过程中，状态不仅仅由当前的输入决定，而是由**当前",
+              "refusal": null,
+              "annotations": [],
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "length"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 20,
+          "completion_tokens": 64,
+          "total_tokens": 84,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "system_fingerprint": "default",
+        "service_tier": "default"
+      }
+    }
+  ]
+}

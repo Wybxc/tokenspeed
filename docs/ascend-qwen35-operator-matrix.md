@@ -14,13 +14,13 @@ history, with FP32 recurrent state. BF16 remains covered by operator tests but
 failed the full-model acceptance tolerance. Status distinguishes
 source availability, dispatch availability, and actual hardware validation.
 
-| Module | Input → output / mutable state | Implementation source | Initial Ascend status | Validation |
+| Module | Input → output / mutable state | Implementation source | Measured Ascend status | Validation |
 | --- | --- | --- | --- | --- |
 | Embedding / tied LM head | IDs `[T]` → `[T,1024]`; final logits `[B,248320]` | Existing TokenSpeed embedding, dense PyTorch GEMM | Full model comparison passed | All-vocabulary logits and generation |
 | QKV and GDN projections | `[T,1024]` → packed head/gate rows | Existing unquantized linear layers | Full model comparison passed | Complete weight audit and logits |
 | MLP / SwiGLU | `[T,1024]` → `[T,2×3584]` → `[T,3584]` → `[T,1024]` | Existing GEMM and registered Ascend activation | Full model comparison passed | FP32 reference logits |
 | Gemma RMSNorm | FP16 `[T,1024]`, FP32 variance, weight offset `1+w` | Reused grouped Gemma norm; new Ascend fused residual add norm | 12 NPU tests passed | CPU FP64 reference; empty and large rows; exact residual writes |
-| Gated RMSNorm | `[T,16,128]` plus gate, SiLU then norm | Existing GDN Triton normalization with device-neutral context | 12 NPU tests passed | Target-shape CPU FP64 reference, both gate orders |
+| Gated RMSNorm | `[T,16,128]` plus gate, RMSNorm(x) × SiLU(gate) | Existing GDN Triton normalization with device-neutral context | 12 NPU tests passed | Target-shape CPU FP64 reference, both gate orders |
 | QK norm / partial RoPE | Q `[T,8,256]`, K `[T,2,256]`; 64 rotary channels | Existing composite attention prologue | RoPE tests and full model passed | Reference logits at lengths 1/128/2048 |
 | Causal GQA / KV write | Q as above; K/V cache `[slots,2,256]` | Existing Ascend FIA; added BSH prefill layout for D=256 | 14 eager MHA tests passed | FP64 attention at lengths 1, packed 3/5, 128, 2048; paged decode |
 | Causal depthwise convolution | Packed `[6144,T]` → same; window `[P,6144,3]` | Existing common Triton convolution | 38 NPU tests passed | Window boundaries, segmented input, read/write remapping |
