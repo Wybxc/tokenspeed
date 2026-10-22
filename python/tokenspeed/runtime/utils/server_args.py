@@ -2409,9 +2409,10 @@ class ServerArgs:
             "--kv-cache-dtype",
             type=str,
             default=ServerArgs.kv_cache_dtype,
-            choices=["auto", "bfloat16", "fp8", "fp8_e4m3", "mxfp8"],
+            choices=["auto", "bfloat16", "float16", "fp8", "fp8_e4m3", "mxfp8"],
             help='Data type for kv cache storage. "auto" and "bfloat16" store BF16 '
-            'rows (fp16 activations convert on write). "fp8" is an alias for '
+            'rows (fp16 activations convert on write). "float16" stores FP16 '
+            'rows for attention backends requiring matching FP16 queries and cache. "fp8" is an alias for '
             '"fp8_e4m3" (unit scale, or the checkpoint\'s per-tensor KV-cache '
             'scales where the model loads them). "mxfp8" stores '
             "block-scaled fp8-e4m3 (one UE8M0 scale per 32 head_dim elements) and "

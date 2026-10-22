@@ -121,10 +121,11 @@ def test_mha_extend_with_paged_cache() -> None:
 
 
 @pytest.mark.parametrize("head_dim", [64, 256])
-def test_mha_decode_with_paged_cache(head_dim) -> None:
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_mha_decode_with_paged_cache(head_dim, dtype) -> None:
     page_size = 128
-    q = torch.randn(2, 8, head_dim, dtype=torch.bfloat16, device="npu")
-    k_cache = torch.randn(4, page_size, 2, head_dim, dtype=torch.bfloat16, device="npu")
+    q = torch.randn(2, 8, head_dim, dtype=dtype, device="npu")
+    k_cache = torch.randn(4, page_size, 2, head_dim, dtype=dtype, device="npu")
     v_cache = torch.randn_like(k_cache)
     page_table = torch.tensor([[0, 0], [1, 2]], dtype=torch.int32, device="npu")
     cache_lengths = torch.tensor([5, 70], dtype=torch.int32, device="npu")
@@ -148,12 +149,13 @@ def test_mha_decode_with_paged_cache(head_dim) -> None:
 
 
 @pytest.mark.parametrize("lengths", [[1], [3, 0, 5], [128], [2048]])
-def test_qwen35_mha_prefill_fp64_reference(lengths) -> None:
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_qwen35_mha_prefill_fp64_reference(lengths, dtype) -> None:
     """D=256 GQA, including packed isolation and the performance input sizes."""
     torch.manual_seed(2026)
     total = sum(lengths)
-    q = torch.randn(total, 8, 256, dtype=torch.bfloat16, device="npu")
-    k = torch.randn(total, 2, 256, dtype=torch.bfloat16, device="npu")
+    q = torch.randn(total, 8, 256, dtype=dtype, device="npu")
+    k = torch.randn(total, 2, 256, dtype=dtype, device="npu")
     v = torch.randn_like(k)
     bounds = [0]
     for length in lengths:

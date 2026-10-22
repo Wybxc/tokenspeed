@@ -52,7 +52,7 @@ def reference(q, k, v, g, beta, state):
 
 
 @pytest.mark.parametrize("length", [1, 3, 4, 5, 63, 64, 65, 129, 2048])
-@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float32])
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float32, torch.float16])
 def test_prefill_against_fp64(length, dtype):
     torch.manual_seed(17)
     # Include grouped heads and non-square state to expose layout mistakes.
@@ -74,7 +74,11 @@ def test_prefill_against_fp64(length, dtype):
         solution="ascend",
     )
     # BF16 output rounds once (unit roundoff 1/256); FP32 state does not.
-    atol, rtol = (1e-3, 4e-3) if dtype == torch.bfloat16 else (2e-6, 2e-5)
+    atol, rtol = {
+        torch.bfloat16: (1e-3, 4e-3),
+        torch.float16: (1e-4, 5e-4),
+        torch.float32: (2e-6, 2e-5),
+    }[dtype]
     torch.testing.assert_close(
         actual.out.cpu().double(), expected, atol=atol, rtol=rtol
     )
@@ -86,15 +90,16 @@ def test_prefill_against_fp64(length, dtype):
     )
 
 
-def test_decode_paging_multistep_and_request_isolation():
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_decode_paging_multistep_and_request_isolation(dtype):
     torch.manual_seed(29)
     batch, length, h, hv, dk, dv = 3, 9, 2, 4, 32, 19
     # Wider backing rows exercise projection views, including strided gates.
-    backing = torch.randn(batch, length, h * dk * 2 + hv * dv + 11).bfloat16()
+    backing = torch.randn(batch, length, h * dk * 2 + hv * dv + 11).to(dtype)
     q = backing[:, :, : h * dk].view(batch, length, h, dk)
     k = backing[:, :, h * dk : 2 * h * dk].view(batch, length, h, dk)
     v = backing[:, :, 2 * h * dk : 2 * h * dk + hv * dv].view(batch, length, hv, dv)
-    a = torch.randn(batch, length, hv).bfloat16()
+    a = torch.randn(batch, length, hv).to(dtype)
     b = torch.randn_like(a)
     alog, bias = torch.randn(hv), torch.randn(hv)
     start = torch.randn(batch, hv, dv, dk) * 0.1

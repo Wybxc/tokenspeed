@@ -427,6 +427,19 @@ class TestCLIConfigCompat:
         sa.resolve_basic_defaults()
         assert (sa.kv_cache_dtype) == ("fp8_e4m3")
 
+    def test_explicit_float16_cache_preserves_default_bfloat16(self):
+        import torch
+
+        from tokenspeed.runtime.layers.attention.configs.base import resolve_dtype
+
+        args = self._parse_args(
+            ["--model", "test/model", "--kv-cache-dtype", "float16"]
+        )
+        sa = self._from_cli_args_no_init(args)
+        sa.resolve_basic_defaults()
+        assert resolve_dtype(sa.kv_cache_dtype) == torch.float16
+        assert resolve_dtype("auto") == torch.bfloat16
+
     def test_tokenizer_mode_deepseek_v4_arg(self):
         args = self._parse_args(
             ["--model", "test/model", "--tokenizer-mode", "deepseek_v4"]

@@ -126,13 +126,51 @@ OMP_NUM_THREADS=4 pytest -q tokenspeed-kernel-npu/test/test_mha.py -k 'not npugr
 ASCEND_RT_VISIBLE_DEVICES=7 scripts/serve_qwen35.sh /tmp/hw1-qwen35-model 31957
 ```
 
-The checks passed: Triton verification, 14 norm tests and 8 eager MHA tests
+The initial BF16 checks passed: Triton verification, 14 norm tests and 8 eager MHA tests
 (the separate NPUGraph test is deliberately deselected). The server reached
 `ts serve ready` on localhost port 31957. Two sequential OpenAI chat requests
 worked: `17 + 25` returned `42` and EOS after 3 tokens, and a Chinese explanation
-generated 64 tokens. The launcher uses all 24 text layers, BF16 weights and
+generated 64 tokens. That preliminary launch used all 24 text layers, BF16 weights and
 activations, FP32 recurrent state, eager execution and greedy sampling.
 Prefix reuse, KV offload and retraction snapshots are explicitly disabled.
 The small single-request cache otherwise rounds its default snapshot pool
-down to zero whole blocks and refuses startup. End-to-end numerical comparison
-and performance commands will follow after their validation.
+down to zero whole blocks and refuses startup.
+
+The final acceptance launcher selects **FP16** compute and cache, keeping
+FP32 GDN state. The BF16 candidate exceeded the initially fixed end-to-end
+logit tolerances on a length-one prompt. Its diagnostic summary is retained in
+`results/qwen35-bf16-diagnostic.json`; tolerances were not relaxed. The explicit
+FP16 cache option avoids an unsupported FP16-query/BF16-cache combination in
+the vendor attention operator. Conv history follows FP16 compute in the Qwen
+cache recipe. The original BF16 `auto` cache default is unchanged.
+
+The expanded operator suite passed **126 tests** (one NPUGraph test
+deselected), including FP16, BF16 and FP32 where applicable:
+
+```bash
+export ASCEND_RT_VISIBLE_DEVICES=7 OMP_NUM_THREADS=4
+source scripts/ascend_env.sh
+pytest -q test/runtime/layers/test_ascend_gemma_norm.py \
+  tokenspeed-kernel-npu/test/test_gdn.py \
+  tokenspeed-kernel-npu/test/test_causal_conv.py \
+  tokenspeed-kernel-npu/test/test_mha.py \
+  tokenspeed-kernel-npu/test/test_layernorm.py \
+  tokenspeed-kernel-npu/test/test_rotary_embedding.py -k 'not npugraph'
+pytest -q test/runtime/test_cache_setup.py test/runtime/test_cli_config_compat.py
+python scripts/qwen35_experiment.py validate --model /tmp/hw1-qwen35-model \
+  --work-dir /tmp/hw1-qwen35-fp16-validation-v3 --output results/qwen35-generation.json
+python scripts/qwen35_experiment.py compare --model /tmp/hw1-qwen35-model \
+  --work-dir /tmp/hw1-qwen35-fp16-validation-v3 --output results/qwen35-correctness.json
+```
+
+Use a fresh work directory for each `validate` run; `compare` reads that run's
+saved inputs/logits. The configuration/cache regressions passed **195 tests
+and 74 subtests**; two existing allocation tests require CUDA and were skipped.
+Full-model comparison passed 163 forward steps against Transformers 5.12.0 CPU
+FP32, using the same checkpoint values and the exact NPU-generated contexts.
+Each step compares all 248320 logits, not only sampled tokens. The fixed gates
+are RMS error ≤0.10 logit, maximum absolute error ≤0.75 and cosine ≥0.999.
+Two repeated requests (1 and 128 input tokens) additionally require bitwise
+equal logits at all 32 steps after unrelated requests. Normal EOS is checked
+separately from fixed-length `ignore_eos` trials. Large logits are outside Git
+in the specified work directory; the small summaries are under `results/`.

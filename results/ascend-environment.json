@@ -27,8 +27,18 @@
     "grpcio": "1.81.1",
     "protobuf": "6.33.6",
     "pytest": "9.1.1",
-    "pre-commit": "4.7.0"
+    "pre-commit": "4.7.0",
+    "tokenspeed-kernel-npu": "0.1.0 (editable source)",
+    "uvicorn": "0.54.0"
   },
   "scheduler_source": "editable tokenspeed-scheduler at base_commit; published wheel lacks StorageConfig",
-  "nanogpt_smoke": "16-token existing-checkpoint sampling passed before environment changes"
+  "nanogpt_smoke": "16-token existing-checkpoint sampling passed before environment changes",
+  "acceptance_precision": {
+    "weights": "float16 dtype conversion; A_log and dt_bias retained in float32; see qwen35-fp16-weight-cast.json",
+    "activations": "float16",
+    "kv_cache": "float16",
+    "conv_state": "float16",
+    "recurrent_state": "float32",
+    "gdn_accumulation": "float32"
+  }
 }

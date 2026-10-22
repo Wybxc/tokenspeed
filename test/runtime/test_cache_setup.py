@@ -416,6 +416,19 @@ def _tiny_linear_attn():
     )
 
 
+@pytest.mark.parametrize("dtype", [torch.float16, torch.bfloat16])
+def test_qwen_conv_history_matches_selected_activation_precision(dtype):
+    from tokenspeed.runtime.layers.attention.kv_cache.recipes.qwen35 import (
+        QwenGDNRecipe,
+    )
+
+    recipe = QwenGDNRecipe.__new__(QwenGDNRecipe)
+    recipe.attn_config = _ns_config(spec=_tiny_linear_attn(), dtype=dtype)
+    conv_shape, conv_dtype, _, _ = recipe._state_shapes
+    assert conv_shape == (4, 1)
+    assert conv_dtype == str(dtype).removeprefix("torch.")
+
+
 def test_qwen_recipe_preserves_backend_kernel_page_size() -> None:
     model_config = SimpleNamespace(
         hf_config=SimpleNamespace(text_config=SimpleNamespace()),

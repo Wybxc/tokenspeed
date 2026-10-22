@@ -1,0 +1,11 @@
+{
+  "elements": 752392448,
+  "changed": 268428,
+  "underflow_to_zero": 15948,
+  "max_absolute_cast_error": 0.00048828125,
+  "max_original_magnitude": 5.3125,
+  "fp32_retained": [
+    "A_log",
+    "dt_bias"
+  ]
+}

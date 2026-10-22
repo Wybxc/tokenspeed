@@ -48,13 +48,14 @@ def reference(x, weight, history):
 
 @pytest.mark.parametrize("length", [1, 2, 3, 4, 5, 63, 64, 65, 129])
 @pytest.mark.parametrize("channels", [17, 6144])
-def test_prefill_history_matches_reference(length, channels):
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_prefill_history_matches_reference(length, channels, dtype):
     torch.manual_seed(37)
-    x = torch.randn(length, channels).bfloat16()
-    w = (torch.randn(channels, 4) * 0.1).bfloat16()
-    history = torch.randn(channels, 3).bfloat16()
+    x = torch.randn(length, channels).to(dtype)
+    w = (torch.randn(channels, 4) * 0.1).to(dtype)
+    history = torch.randn(channels, 3).to(dtype)
     expected, final = reference(x, w, history)
-    pool = torch.randn(5, channels, 3, device="npu").bfloat16()
+    pool = torch.randn(5, channels, 3, device="npu").to(dtype)
     pool[2] = history.npu()
     before = pool.clone()
     bounds = torch.tensor([0, length], dtype=torch.int32, device="npu")
@@ -75,12 +76,13 @@ def test_prefill_history_matches_reference(length, channels):
     torch.testing.assert_close(pool[[0, 1, 3, 4]], before[[0, 1, 3, 4]], atol=0, rtol=0)
 
 
-def test_decode_remapping_and_reinitialized_request():
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_decode_remapping_and_reinitialized_request(dtype):
     torch.manual_seed(41)
     channels, length = 6144, 7
-    x = torch.randn(length, channels).bfloat16()
-    w = (torch.randn(channels, 4) * 0.1).bfloat16()
-    pool = torch.randn(6, channels, 3, device="npu").bfloat16()
+    x = torch.randn(length, channels).to(dtype)
+    w = (torch.randn(channels, 4) * 0.1).to(dtype)
+    pool = torch.randn(6, channels, 3, device="npu").to(dtype)
     old = pool.clone()
     expected, final = reference(x, w, pool[1].cpu())
     wn = w.npu()

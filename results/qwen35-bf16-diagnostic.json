@@ -1,0 +1,42 @@
+{
+  "validated": false,
+  "reference": "Transformers 5.12.0 CPU BF16, FP32 recurrent state, eager attention",
+  "reason": "Length-one decode exceeds the unchanged accuracy thresholds; FP16 is the acceptance precision.",
+  "summaries": [
+    {
+      "id": "length-1",
+      "greedy_agreement": 1.0,
+      "max_abs": 1.0625,
+      "max_rms": 0.22479946911334991,
+      "minimum_cosine": 0.9979836344718933
+    },
+    {
+      "id": "length-128",
+      "greedy_agreement": 1.0,
+      "max_abs": 0.34375,
+      "max_rms": 0.07393232733011246,
+      "minimum_cosine": 0.999782383441925
+    },
+    {
+      "id": "length-2048",
+      "greedy_agreement": 1.0,
+      "max_abs": 0.3125,
+      "max_rms": 0.07742771506309509,
+      "minimum_cosine": 0.9998447299003601
+    },
+    {
+      "id": "chat-0",
+      "greedy_agreement": 0.96875,
+      "max_abs": 0.421875,
+      "max_rms": 0.07714015245437622,
+      "minimum_cosine": 0.9996632933616638
+    },
+    {
+      "id": "chat-1",
+      "greedy_agreement": 1.0,
+      "max_abs": 0.484375,
+      "max_rms": 0.061186786741018295,
+      "minimum_cosine": 0.9995934367179871
+    }
+  ]
+}

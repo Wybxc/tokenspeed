@@ -181,7 +181,8 @@ class QwenGDNRecipe(CacheRecipe):
     def _state_shapes(self):
         """Per-rank GDN state shapes from the linear component.
 
-        Dtypes are the recipe's contract: conv bf16, SSM per the engine env.
+        Conv history matches FP16 activations when selected explicitly;
+        other configurations retain BF16. SSM follows the engine setting.
         """
         linear_attn = self.attn_config.component(LinearAttnConfig)
         ssm_dtype = {
@@ -190,7 +191,11 @@ class QwenGDNRecipe(CacheRecipe):
         }[envs.TOKENSPEED_MAMBA_SSM_DTYPE.get()]
         return (
             linear_attn.conv_state_shape,
-            cache_dtype_name(torch.bfloat16),
+            cache_dtype_name(
+                torch.float16
+                if self.attn_config.dtype == torch.float16
+                else torch.bfloat16
+            ),
             linear_attn.temporal_state_shape,
             cache_dtype_name(ssm_dtype),
         )

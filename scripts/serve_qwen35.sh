@@ -26,8 +26,8 @@ service_port="${2:?Pass the localhost HTTP port}"
 source scripts/ascend_env.sh
 export OMP_NUM_THREADS=4
 exec python -m tokenspeed.cli serve "${model_path}" \
-  --served-model-name qwen35-08b --device npu --dtype bfloat16 \
-  --kv-cache-dtype auto --attention-backend mha --sampling-backend greedy \
+  --served-model-name qwen35-08b --device npu --dtype float16 \
+  --kv-cache-dtype float16 --attention-backend mha --sampling-backend greedy \
   --disable-prefill-graph --disable-pdl --enforce-eager \
   --disable-prefix-caching --disable-kvstore --language-model-only \
   --enable-output-logprobs --seed 2026 --mamba-ssm-dtype float32 \

@@ -100,6 +100,8 @@ def resolve_cache_layer_types(
 def resolve_dtype(kv_cache_dtype_str: str) -> torch.dtype:
     if kv_cache_dtype_str == "auto" or kv_cache_dtype_str == "bfloat16":
         return torch.bfloat16
+    elif kv_cache_dtype_str == "float16":
+        return torch.float16
     elif kv_cache_dtype_str in ("fp8", "fp8_e4m3"):
         return torch.float8_e4m3fn
     elif kv_cache_dtype_str == "mxfp8":

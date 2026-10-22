@@ -34,7 +34,7 @@ pytestmark = pytest.mark.skipif(
 
 
 @pytest.mark.parametrize("rows", [0, 1, 7, 128])
-@pytest.mark.parametrize("dtype", [torch.float32, torch.bfloat16])
+@pytest.mark.parametrize("dtype", [torch.float32, torch.bfloat16, torch.float16])
 @torch.no_grad()
 def test_gemma_norm_and_fused_add(rows, dtype):
     torch.manual_seed(43)
@@ -54,7 +54,7 @@ def test_gemma_norm_and_fused_add(rows, dtype):
     # Compare to unrounded FP64: BF16's nearest rounding has <= 1/256
     # relative error. Comparing two independently rounded BF16 references
     # would instead penalize a one-ULP tie caused by FP32 reduction order.
-    rtol = 4e-3 if dtype == torch.bfloat16 else 1e-5
+    rtol = {torch.bfloat16: 4e-3, torch.float16: 5e-4, torch.float32: 1e-5}[dtype]
 
     expected = reference(x.float())
     torch.testing.assert_close(norm(x).cpu().double(), expected, atol=1e-6, rtol=rtol)
@@ -71,14 +71,15 @@ def test_gemma_norm_and_fused_add(rows, dtype):
 
 @pytest.mark.parametrize("rows", [1, 7, 128])
 @pytest.mark.parametrize("before_gate", [True, False])
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
 @torch.no_grad()
-def test_gdn_gated_norm(rows, before_gate):
+def test_gdn_gated_norm(rows, before_gate, dtype):
     torch.manual_seed(47)
     norm = RMSNorm(
-        128, eps=1e-6, norm_before_gate=before_gate, device="npu", dtype=torch.bfloat16
+        128, eps=1e-6, norm_before_gate=before_gate, device="npu", dtype=dtype
     )
     norm.weight.copy_(torch.randn_like(norm.weight) * 0.1 + 1)
-    x, z = [torch.randn(rows, 16, 128, device="npu").bfloat16() for _ in range(2)]
+    x, z = [torch.randn(rows, 16, 128, device="npu").to(dtype) for _ in range(2)]
     xd, zd, wd = [t.cpu().double() for t in (x, z, norm.weight)]
     gate = torch.nn.functional.silu(zd)
     value = xd if before_gate else xd * gate
@@ -86,5 +87,8 @@ def test_gdn_gated_norm(rows, before_gate):
     if before_gate:
         expected *= gate
     torch.testing.assert_close(
-        norm(x, z).cpu().double(), expected, atol=4e-3, rtol=4e-3
+        norm(x, z).cpu().double(),
+        expected,
+        atol=4e-3 if dtype == torch.bfloat16 else 5e-4,
+        rtol=4e-3 if dtype == torch.bfloat16 else 5e-4,
     )
