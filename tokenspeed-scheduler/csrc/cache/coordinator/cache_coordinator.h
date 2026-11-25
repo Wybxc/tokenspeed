@@ -336,6 +336,7 @@ public:
     std::int32_t NumEmptyLcmBlocks() const { return pool_.NumEmptyLcmBlocks(); }
     std::int32_t TotalLcmBlocks() const { return pool_.NumLcmBlocks(); }
     std::int32_t NumFreeHostLcmBlocks() const { return host_pool_ == nullptr ? 0 : host_pool_->NumEmptyLcmBlocks(); }
+    std::int64_t HostEvictions() const { return host_evictions_; }
     // Distinct LCM blocks referenced by the given per-request table sets.
     std::int32_t NumActiveLcmBlocks(std::span<const std::span<const BlockTable>> request_tables) const;
     // Free pages (group page units) this group could still place, counting its
@@ -604,6 +605,9 @@ private:
     std::int32_t prefix_granularity_{0};
     std::int32_t replay_window_tokens_{0};
     std::uint64_t next_access_epoch_{0};
+    // Successful Host L2 prefix-entry evictions since scheduler creation.
+    // This monotonic behavior counter is separate from the current gauges.
+    std::int64_t host_evictions_{0};
     TailTable tails_;
     std::vector<StoreCandidate> pending_stores_;
     CacheMutationSink cache_mutation_sink_;
