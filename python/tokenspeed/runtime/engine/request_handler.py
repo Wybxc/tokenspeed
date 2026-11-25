@@ -37,7 +37,6 @@ from tokenspeed_kernel.profiling import (
     start_profiling,
     stop_profiling,
 )
-from viztracer import VizTracer
 
 from tokenspeed.runtime.cache.l3.backend import (
     L3_FLUSH_REQUIRES_WEIGHT_VERSION,
@@ -1103,6 +1102,11 @@ class RequestHandler:
                 )
 
         if "VIZTRACER" in activities:
+            # VizTracer is only needed for an explicitly requested trace.  A
+            # normal engine worker must not fail to start when that optional
+            # profiling tool is absent from a minimal accelerator runtime.
+            from viztracer import VizTracer
+
             Path(self.profiler_output_dir).mkdir(parents=True, exist_ok=True)
             self.viztracer = VizTracer(
                 output_file=os.path.join(
