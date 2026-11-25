@@ -1,0 +1,175 @@
+{
+  "arguments": {
+    "model": "/home/u2501112015/models/Qwen3.5-4B",
+    "tp": 1,
+    "offload": "on",
+    "workload": "correctness",
+    "host_gb": 1.0,
+    "snapshot_host_gb": 1.0,
+    "device_tokens": 8192,
+    "max_seqs": 1,
+    "prompt_tokens": 384,
+    "output_tokens": 4,
+    "repeats": 1,
+    "debug_retraction_interval": 2,
+    "work_dir": "/home/u2501112015/hw3-runs/4b-tp1-correctness-on-v2",
+    "output": "/home/u2501112015/hw3-runs/4b-tp1-correctness-on-v2.json"
+  },
+  "config": {
+    "model": "/home/u2501112015/models/Qwen3.5-4B",
+    "device": "npu",
+    "dtype": "float16",
+    "kv_cache_dtype": "float16",
+    "attention_backend": "mha",
+    "sampling_backend": "greedy",
+    "disable_prefill_graph": true,
+    "disable_pdl": true,
+    "enforce_eager": true,
+    "enable_prefix_caching": true,
+    "disable_kvstore": false,
+    "language_model_only": true,
+    "enable_output_logprobs": true,
+    "seed": 2026,
+    "mamba_ssm_dtype": "float32",
+    "world_size": 1,
+    "max_model_len": 4096,
+    "max_num_seqs": 1,
+    "max_total_tokens": 8192,
+    "chunked_prefill_size": 4096,
+    "prefix_granularity": 128,
+    "retraction_snapshot_ratio": 0,
+    "disable_autotune": true,
+    "log_level": "info",
+    "attn_tp_size": 1,
+    "dense_tp_size": 1,
+    "enable_allreduce_fusion": false,
+    "kvstore_size": 1.0,
+    "kvstore_io_backend": "direct",
+    "retraction_snapshot_host_gb": 1.0,
+    "retraction_snapshot_max_requests": 1,
+    "debug_force_retraction_interval": 2,
+    "disable_overlap_schedule": true
+  },
+  "waves": [
+    {
+      "name": "correctness-0",
+      "wall_seconds": 1.7559831598773599,
+      "output_tokens_per_second": 2.277926173437429,
+      "requests": [
+        {
+          "session": "session-0",
+          "input_tokens": 384,
+          "output_ids": [
+            1902,
+            20480,
+            1396,
+            61911
+          ],
+          "cached_tokens": 0,
+          "finish_reason": {
+            "type": "length",
+            "length": 4
+          },
+          "ttft_ms": 1542.9543796926737,
+          "wall_ms": 1755.4892795160413,
+          "tpot_ms": 70.8449666077892
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "python/tokenspeed/runtime/cache/l2/executor.py": "e8d1206d508978d32d965f4bb11cdf524a72eab12293fcc2f65b47c62e55e0fd",
+    "python/tokenspeed/runtime/cache/transfer/ops.py": "94aa9a1a2461d909b44d867f491ceb3c695775f55a464d49717edb30dad6e63c",
+    "tokenspeed-kernel/python/tokenspeed_kernel/ops/kvcache/host_transfer.py": "ce4dc8ca1f6506e8e6c442cc2cc131f6847711490a6c2944b33496af586e2275",
+    "tokenspeed-scheduler/csrc/cache/coordinator/cache_coordinator.cpp": "8a36033a6cd4eefe661a73a67f797833a6e9ff99411669b457261d5af6f546e4"
+  },
+  "trace": {
+    "ranks": [
+      {
+        "rank": 0,
+        "capacity": {
+          "rank": 0,
+          "device_lcm_blocks": 8,
+          "host_lcm_blocks": 29,
+          "host_bytes": 973078528,
+          "snapshot_lcm_blocks": 29,
+          "snapshot_bytes": 973078528,
+          "blob_bytes_per_request": 144,
+          "blob_arena_bytes": 288,
+          "max_retracted_requests": 1,
+          "transfer_backend": "dma"
+        },
+        "transfers": {
+          "write_back": {
+            "batches": 3,
+            "operations": 3,
+            "blocks": 11,
+            "bytes": 175505408
+          },
+          "snapshot": {
+            "batches": 1,
+            "operations": 1,
+            "blocks": 0,
+            "bytes": 144
+          },
+          "restore": {
+            "batches": 1,
+            "operations": 1,
+            "blocks": 3,
+            "bytes": 55705744
+          }
+        },
+        "completion_latency_ms": {
+          "write_back": {
+            "count": 3,
+            "median": 0.18845964223146439,
+            "max": 65.97612984478474
+          },
+          "snapshot": {
+            "count": 1,
+            "median": 0.20120013505220413,
+            "max": 0.20120013505220413
+          },
+          "restore": {
+            "count": 1,
+            "median": 0.18918048590421677,
+            "max": 0.18918048590421677
+          }
+        },
+        "gauges": {
+          "samples": 8,
+          "final": {
+            "device_active_blocks": 0,
+            "device_cached_blocks": 7,
+            "device_empty_blocks": 1,
+            "device_total_blocks": 8,
+            "event": "gauge",
+            "host_cached_blocks": 11,
+            "host_evictions": 0,
+            "host_free_blocks": 22,
+            "host_pinned_blocks": 0,
+            "retracted_requests": 0,
+            "snapshot_free_blocks": 29,
+            "time_ns": 1795583868323069050
+          },
+          "min_device_empty_blocks": 1,
+          "max_device_active_blocks": 5,
+          "max_device_cached_blocks": 7,
+          "max_host_cached_blocks": 11,
+          "max_host_pinned_blocks": 6,
+          "host_evictions": 0,
+          "min_snapshot_free_blocks": 29,
+          "max_retracted_requests": 1
+        }
+      }
+    ]
+  },
+  "summary": {
+    "requests": 1,
+    "cache_hits": 0,
+    "cache_misses": 1,
+    "median_ttft_ms": 1542.9543796926737,
+    "median_tpot_ms": 70.8449666077892,
+    "output_tokens_per_second": 2.277926173437429
+  }
+}

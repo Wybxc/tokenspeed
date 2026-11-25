@@ -1,0 +1,94 @@
+{
+  "captured_at": "2026-11-25T13:30:00+08:00",
+  "base_commit": "c0950c1969c3310fb3a8d3ccb79f07a84166d806",
+  "branch": "codex/ascend-qwen35-offload",
+  "models": [
+    "Qwen3.5-0.8B",
+    "Qwen3.5-4B"
+  ],
+  "direct_dma_smoke": {
+    "roundtrip_exact": true,
+    "bytes": 64,
+    "d2h_ms": 0.7420196197926998,
+    "h2d_ms": 0.2235695719718933
+  },
+  "tests": {
+    "scheduler_python_binding": {
+      "passed": 7,
+      "failed": 0
+    },
+    "scheduler_cpp": {
+      "passed": 632,
+      "failed": 0
+    },
+    "host_eviction_cpp_scenario": "passed"
+  },
+  "correctness": {
+    "tp1_08b": {
+      "compared_requests": 6,
+      "exact_output_match": true,
+      "snapshot_operations": 33,
+      "restore_operations": 33,
+      "final_retracted_requests": 0,
+      "final_snapshot_free_blocks": 19,
+      "snapshot_capacity_blocks": 19
+    },
+    "tp2_08b": {
+      "compared_requests": 2,
+      "exact_output_match": true,
+      "rank_count": 2,
+      "snapshot_operations_per_rank": 4,
+      "restore_operations_per_rank": 4,
+      "final_retracted_requests_per_rank": 0,
+      "final_snapshot_free_blocks_per_rank": 39,
+      "snapshot_capacity_blocks_per_rank": 39
+    },
+    "tp1_4b": {
+      "compared_requests": 1,
+      "exact_output_match": true,
+      "snapshot_operations": 1,
+      "restore_operations": 1,
+      "final_retracted_requests": 0,
+      "final_snapshot_free_blocks": 29,
+      "snapshot_capacity_blocks": 29
+    }
+  },
+  "capacity": {
+    "small_host_budget_08b": {
+      "configured_host_gib": 0.1,
+      "usable_host_bytes": 88080384,
+      "host_lcm_blocks": 7,
+      "host_evictions": 66,
+      "revisit_cached_tokens": 0
+    },
+    "large_host_budget_08b": {
+      "configured_host_gib": 0.6,
+      "usable_host_bytes": 591396864,
+      "host_lcm_blocks": 47,
+      "host_evictions": 0,
+      "load_back_bytes": 36839424,
+      "load_back_latency_ms": 118.71603038161993,
+      "revisit_cached_tokens": 1408
+    },
+    "device_pool": {
+      "tokens": 16384,
+      "lcm_blocks": 16,
+      "max_observed_empty_blocks": 10,
+      "preallocated_pool_note": "HBM allocation stays reserved; scheduler block gauges prove reclaim and reuse."
+    }
+  },
+  "performance": {
+    "high_reuse_final_revisit": {
+      "offload_disabled_ttft_ms": 854.6921703964472,
+      "offload_enabled_ttft_ms": 126.86139065772295,
+      "offload_disabled_wall_ms": 1130.9911403805017,
+      "offload_enabled_wall_ms": 444.1020004451275
+    },
+    "low_reuse": {
+      "offload_disabled_output_tokens_per_second": 6.011131100131758,
+      "offload_enabled_output_tokens_per_second": 5.9810355865090274,
+      "offload_disabled_median_tpot_ms": 41.716951477740494,
+      "offload_enabled_median_tpot_ms": 43.055171413081034
+    }
+  }
+}

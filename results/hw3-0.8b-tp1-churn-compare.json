@@ -1,0 +1,16 @@
+{
+  "compared_requests": 5,
+  "exact_output_match": true,
+  "mismatches": [],
+  "offload_ranks": [
+    {
+      "rank": 0,
+      "snapshot_operations": 0,
+      "restore_operations": 0,
+      "snapshot_restore_balanced": true,
+      "host_evictions": 66
+    }
+  ],
+  "all_ranks_exercised_snapshot_restore": false,
+  "all_ranks_balanced": true
+}
