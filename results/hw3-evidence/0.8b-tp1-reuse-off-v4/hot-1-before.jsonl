@@ -1,0 +1,8 @@
+{"step": 0, "mode": "EXTEND", "tokens": 128, "batch_size": 1, "allocated": 2061535744, "reserved": 2562719744, "peak_allocated": 2144011264, "peak_reserved": 2562719744}
+{"step": 1, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 2061532672, "reserved": 2562719744, "peak_allocated": 2144011264, "peak_reserved": 2562719744}
+{"step": 2, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 2061532672, "reserved": 2562719744, "peak_allocated": 2144011264, "peak_reserved": 2562719744}
+{"step": 3, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 2061532672, "reserved": 2562719744, "peak_allocated": 2144011264, "peak_reserved": 2562719744}
+{"step": 4, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 2061532672, "reserved": 2562719744, "peak_allocated": 2144011264, "peak_reserved": 2562719744}
+{"step": 5, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 2061532672, "reserved": 2562719744, "peak_allocated": 2144011264, "peak_reserved": 2562719744}
+{"step": 6, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 2061532672, "reserved": 2562719744, "peak_allocated": 2144011264, "peak_reserved": 2562719744}
+{"step": 7, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 2061532672, "reserved": 2562719744, "peak_allocated": 2144011264, "peak_reserved": 2562719744}
