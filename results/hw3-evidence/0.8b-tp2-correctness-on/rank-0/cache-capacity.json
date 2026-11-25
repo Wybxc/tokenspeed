@@ -1,0 +1,12 @@
+{
+  "rank": 0,
+  "device_lcm_blocks": 8,
+  "host_lcm_blocks": 15,
+  "host_bytes": 94371840,
+  "snapshot_lcm_blocks": 39,
+  "snapshot_bytes": 245366784,
+  "blob_bytes_per_request": 144,
+  "blob_arena_bytes": 432,
+  "max_retracted_requests": 2,
+  "transfer_backend": "dma"
+}
