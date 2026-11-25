@@ -1,0 +1,4 @@
+{"step": 0, "mode": "EXTEND", "tokens": 384, "batch_size": 1, "allocated": 9088057856, "reserved": 9613344768, "peak_allocated": 9319298048, "peak_reserved": 9613344768}
+{"step": 1, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 9088054784, "reserved": 9615441920, "peak_allocated": 9319298048, "peak_reserved": 9615441920}
+{"step": 2, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 9088054784, "reserved": 9615441920, "peak_allocated": 9319298048, "peak_reserved": 9615441920}
+{"step": 3, "mode": "DECODE", "tokens": 1, "batch_size": 1, "allocated": 9088054784, "reserved": 9615441920, "peak_allocated": 9319298048, "peak_reserved": 9615441920}
