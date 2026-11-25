@@ -5460,6 +5460,7 @@ TEST_F(StreamingSinkSuite, CommittedColdEntriesAreReplacedWhenHostPoolIsFull) {
     SendWriteBackDone(stream_wb1->op_ids.at(0));
     ASSERT_EQ(scheduler_->HostPoolCachedBlocks(), 6);
     ASSERT_EQ(scheduler_->HostPoolFreeBlocks(), 0);
+    ASSERT_EQ(scheduler_->HostPoolEvictions(), 0);
 
     ExecutionPlan finalize2 = RunToFinalize(MakeRequestSpec("r2", /*num_pages=*/4, /*start=*/501));
     auto stream_wb2 = FindWriteBack(finalize2);
@@ -5467,6 +5468,7 @@ TEST_F(StreamingSinkSuite, CommittedColdEntriesAreReplacedWhenHostPoolIsFull) {
     EXPECT_EQ(stream_wb2->src_pages.at(0).size(), 6u);
     EXPECT_FALSE(FindWriteBack(FinishAndReap("r2")).has_value());
     EXPECT_EQ(scheduler_->HostPoolCachedBlocks(), 0) << "old keys are removed before replacement D2H";
+    EXPECT_EQ(scheduler_->HostPoolEvictions(), 6);
     SendWriteBackDone(stream_wb2->op_ids.at(0));
     EXPECT_EQ(scheduler_->HostPoolCachedBlocks(), 6);
 }
