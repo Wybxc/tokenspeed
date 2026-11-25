@@ -400,9 +400,11 @@ def _causal_conv1d_fwd_kernel(  # continuous batching
 
         if SILU_ACTIVATION:
             acc = acc / (1 + tl.exp(-acc))
-        mask_1d = (idx_token < segment_len) & (
-            idx_feats < dim
-        )  # token-index  # feature-index
+        # ``idx_token`` is produced by ``tl.static_range(segment_len)`` and is
+        # therefore in range by construction.  Keeping that comparison in the
+        # mask turns it into a Python bool on Triton-Ascend 3.2.0, which cannot
+        # participate in tensor ``&``.  Only the feature tail needs masking.
+        mask_1d = idx_feats < dim
         o_ptrs = (
             o_ptr
             + (sequence_start_index + token_offset + idx_token) * stride_o_token
@@ -657,9 +659,9 @@ def _causal_conv1d_update_kernel(
 
         if SILU_ACTIVATION:
             acc = acc / (1 + tl.exp(-acc))
-        mask_1d = (idx_token < seqlen) & (
-            idx_feats < dim
-        )  # token-index  # feature-index
+        # ``tl.static_range(seqlen)`` already bounds ``idx_token``.  Avoid a
+        # compile-time bool in the tensor mask for Triton-Ascend 3.2.0.
+        mask_1d = idx_feats < dim
         o_ptrs = (
             o_ptr
             + (idx_seq) * stride_o_seq
