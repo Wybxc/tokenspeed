@@ -577,6 +577,10 @@ NB_MODULE(tokenspeed_scheduler_ext, m) {
              "suspended request's image).")
         .def("host_pool_pinned_blocks", &tokenspeed::Scheduler::HostPoolPinnedBlocks,
              "Host L2 entries pinned by a request -- a suspended request's image, or an in-flight transfer.")
+        .def("host_pool_free_blocks", &tokenspeed::Scheduler::HostPoolFreeBlocks,
+             "Empty Host L2 parent blocks currently available for placement.")
+        .def("host_pool_evictions", &tokenspeed::Scheduler::HostPoolEvictions,
+             "Successful Host L2 prefix-entry evictions since scheduler creation.")
         .def("tail_entries", &tokenspeed::Scheduler::TailEntries,
              "Published partial-page boundaries (hash@T) the prefix probe can resume at.")
         .def("tail_cap_evictions", &tokenspeed::Scheduler::TailCapEvictions,
