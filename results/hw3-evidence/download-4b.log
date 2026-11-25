@@ -1,1 +1,15 @@
-
+nohup: ignoring input
+Acquiring Qwen/Qwen3.5-4B: 8.70 GiB
+Verified chat_template.jinja (7756 bytes)
+Verified configuration.json (73 bytes)
+Verified LICENSE (11343 bytes)
+Verified config.json (3161 bytes)
+Verified model.safetensors.index.json (76196 bytes)
+Verified merges.txt (3353259 bytes)
+Verified preprocessor_config.json (390 bytes)
+Verified tokenizer_config.json (16710 bytes)
+Verified tokenizer.json (12807982 bytes)
+Verified video_preprocessor_config.json (385 bytes)
+Verified vocab.json (6722759 bytes)
+Verified model.safetensors-00002-of-00002.safetensors (3990429408 bytes)
+Verified model.safetensors-00001-of-00002.safetensors (5329398688 bytes)
