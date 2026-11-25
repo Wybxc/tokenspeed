@@ -1,0 +1,281 @@
+{"device_active_blocks": 5, "device_cached_blocks": 0, "device_empty_blocks": 3, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 0, "host_evictions": 0, "host_free_blocks": 7, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582686537886950}
+{"blocks": 5, "bytes": 24256512, "event": "submit", "kind": "write_back", "op_ids": [0], "time_ns": 1795582686540890950}
+{"device_active_blocks": 5, "device_cached_blocks": 0, "device_empty_blocks": 3, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 0, "host_evictions": 0, "host_free_blocks": 4, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582686592418420}
+{"event": "complete", "kind": "write_back", "latency_ms": 51.78395006805658, "op_id": 0, "time_ns": 1795582686592668600}
+{"device_active_blocks": 3, "device_cached_blocks": 2, "device_empty_blocks": 3, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 5, "host_evictions": 0, "host_free_blocks": 4, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582686633418480}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [1], "time_ns": 1795582686635639240}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [2], "time_ns": 1795582686636281630}
+{"device_active_blocks": 5, "device_cached_blocks": 3, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 5, "host_evictions": 0, "host_free_blocks": 2, "host_pinned_blocks": 3, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582686870319570}
+{"event": "complete", "kind": "write_back", "latency_ms": 234.92472991347313, "op_id": 1, "time_ns": 1795582686870551120}
+{"event": "complete", "kind": "snapshot", "latency_ms": 234.27079990506172, "op_id": 2, "time_ns": 1795582686870644550}
+{"blocks": 5, "bytes": 24256512, "event": "submit", "kind": "write_back", "op_ids": [4], "time_ns": 1795582686872937620}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [3], "time_ns": 1795582686875169110}
+{"device_active_blocks": 7, "device_cached_blocks": 0, "device_empty_blocks": 1, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 8, "host_evictions": 0, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582686914746260}
+{"event": "complete", "kind": "write_back", "latency_ms": 42.03653987497091, "op_id": 4, "time_ns": 1795582686914972040}
+{"event": "complete", "kind": "restore", "latency_ms": 39.803579449653625, "op_id": 3, "time_ns": 1795582686915065120}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [5], "time_ns": 1795582686916112700}
+{"device_active_blocks": 3, "device_cached_blocks": 4, "device_empty_blocks": 1, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 13, "host_evictions": 0, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582686955990140}
+{"event": "complete", "kind": "snapshot", "latency_ms": 40.095739997923374, "op_id": 5, "time_ns": 1795582686956208030}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [6], "time_ns": 1795582686958509280}
+{"device_active_blocks": 5, "device_cached_blocks": 2, "device_empty_blocks": 1, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 13, "host_evictions": 0, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582686998896080}
+{"event": "complete", "kind": "restore", "latency_ms": 40.614849887788296, "op_id": 6, "time_ns": 1795582686999123060}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [7], "time_ns": 1795582687000287550}
+{"device_active_blocks": 7, "device_cached_blocks": 1, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 13, "host_evictions": 0, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687234211870}
+{"event": "complete", "kind": "snapshot", "latency_ms": 234.13631040602922, "op_id": 7, "time_ns": 1795582687234423190}
+{"blocks": 5, "bytes": 24256512, "event": "submit", "kind": "write_back", "op_ids": [8], "time_ns": 1795582687236631640}
+{"device_active_blocks": 7, "device_cached_blocks": 1, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 9, "host_evictions": 4, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687321652380}
+{"event": "complete", "kind": "write_back", "latency_ms": 85.24675015360117, "op_id": 8, "time_ns": 1795582687321876050}
+{"blocks": 5, "bytes": 24256512, "event": "submit", "kind": "write_back", "op_ids": [9], "time_ns": 1795582687324307680}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [10], "time_ns": 1795582687324934870}
+{"blocks": 6, "bytes": 25829520, "event": "submit", "kind": "restore", "op_ids": [11], "time_ns": 1795582687327351630}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 9, "host_evictions": 9, "host_free_blocks": 0, "host_pinned_blocks": 7, "retracted_requests": 2, "snapshot_free_blocks": 19, "time_ns": 1795582687367525790}
+{"event": "complete", "kind": "write_back", "latency_ms": 43.46259031444788, "op_id": 9, "time_ns": 1795582687367767590}
+{"event": "complete", "kind": "snapshot", "latency_ms": 42.833440005779266, "op_id": 10, "time_ns": 1795582687367864610}
+{"event": "complete", "kind": "restore", "latency_ms": 40.41782021522522, "op_id": 11, "time_ns": 1795582687367934760}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [12], "time_ns": 1795582687370234180}
+{"device_active_blocks": 8, "device_cached_blocks": 0, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 9, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687416371040}
+{"event": "complete", "kind": "restore", "latency_ms": 46.35170008987188, "op_id": 12, "time_ns": 1795582687416584300}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [13], "time_ns": 1795582687418557130}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [14], "time_ns": 1795582687419162880}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 12, "host_free_blocks": 0, "host_pinned_blocks": 3, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687461659090}
+{"event": "complete", "kind": "write_back", "latency_ms": 43.31615008413792, "op_id": 13, "time_ns": 1795582687461871190}
+{"event": "complete", "kind": "snapshot", "latency_ms": 42.708990164101124, "op_id": 14, "time_ns": 1795582687461964000}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [15], "time_ns": 1795582687464337540}
+{"device_active_blocks": 8, "device_cached_blocks": 0, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 12, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687506523330}
+{"event": "complete", "kind": "restore", "latency_ms": 42.39559918642044, "op_id": 15, "time_ns": 1795582687506731830}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [16], "time_ns": 1795582687507727340}
+{"device_active_blocks": 3, "device_cached_blocks": 5, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 15, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687549945530}
+{"event": "complete", "kind": "snapshot", "latency_ms": 42.439090088009834, "op_id": 16, "time_ns": 1795582687550166230}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [17], "time_ns": 1795582687552049280}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [18], "time_ns": 1795582687553837860}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 6, "host_evictions": 20, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687593423110}
+{"event": "complete", "kind": "write_back", "latency_ms": 41.58808011561632, "op_id": 17, "time_ns": 1795582687593635470}
+{"event": "complete", "kind": "restore", "latency_ms": 39.79906067252159, "op_id": 18, "time_ns": 1795582687593727710}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 9, "host_evictions": 20, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687594120860}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [20], "time_ns": 1795582687595917150}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.16088038682937622, "op_id": 20, "time_ns": 1795582687596076930}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 9, "host_evictions": 20, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687596681920}
+{"blocks": 5, "bytes": 24256512, "event": "submit", "kind": "write_back", "op_ids": [19], "time_ns": 1795582687603472930}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.10832026600837708, "op_id": 19, "time_ns": 1795582687603578780}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 20, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687604392910}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [21], "time_ns": 1795582687612495570}
+{"event": "complete", "kind": "restore", "latency_ms": 0.15289057046175003, "op_id": 21, "time_ns": 1795582687612647000}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 20, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582687652230640}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 23, "host_free_blocks": 0, "host_pinned_blocks": 3, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687652638430}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [22], "time_ns": 1795582687657935520}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.14743022620677948, "op_id": 22, "time_ns": 1795582687658080750}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 23, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687658636770}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [23], "time_ns": 1795582687659889230}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.15749968588352203, "op_id": 23, "time_ns": 1795582687660045550}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 23, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687660581840}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [24], "time_ns": 1795582687669705610}
+{"event": "complete", "kind": "restore", "latency_ms": 0.154019333422184, "op_id": 24, "time_ns": 1795582687669857940}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 23, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582687709804810}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 26, "host_free_blocks": 0, "host_pinned_blocks": 3, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687710210760}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [25], "time_ns": 1795582687715535760}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.15880074352025986, "op_id": 25, "time_ns": 1795582687715692210}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 26, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687716250880}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [26], "time_ns": 1795582687717460740}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.06989948451519012, "op_id": 26, "time_ns": 1795582687717529920}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 26, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687718066810}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [27], "time_ns": 1795582687725627100}
+{"event": "complete", "kind": "restore", "latency_ms": 0.16517005860805511, "op_id": 27, "time_ns": 1795582687725791090}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 26, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582687765383160}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 29, "host_free_blocks": 0, "host_pinned_blocks": 3, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687765784930}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [28], "time_ns": 1795582687772027000}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.15016086399555206, "op_id": 28, "time_ns": 1795582687772174870}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 29, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687772750320}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [29], "time_ns": 1795582687773924730}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.07096026092767715, "op_id": 29, "time_ns": 1795582687773994870}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 29, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687774531370}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [30], "time_ns": 1795582687783147950}
+{"event": "complete", "kind": "restore", "latency_ms": 0.1515401527285576, "op_id": 30, "time_ns": 1795582687783297970}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 29, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687783794910}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [31], "time_ns": 1795582687785389890}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.14283042401075363, "op_id": 31, "time_ns": 1795582687785532190}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 29, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582687786051850}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [32], "time_ns": 1795582687794087140}
+{"event": "complete", "kind": "restore", "latency_ms": 0.07903948426246643, "op_id": 32, "time_ns": 1795582687794164890}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 32, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582687833774400}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [33], "time_ns": 1795582687837052320}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 32, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582692177423900}
+{"event": "complete", "kind": "write_back", "latency_ms": 4340.911040082574, "op_id": 33, "time_ns": 1795582692177962330}
+{"blocks": 2, "bytes": 19537920, "event": "submit", "kind": "write_back", "op_ids": [34], "time_ns": 1795582692180543280}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 12, "host_evictions": 34, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582696494796870}
+{"event": "complete", "kind": "write_back", "latency_ms": 4314.559769816697, "op_id": 34, "time_ns": 1795582696495098860}
+{"blocks": 2, "bytes": 19537920, "event": "submit", "kind": "write_back", "op_ids": [35], "time_ns": 1795582696497228120}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 12, "host_evictions": 36, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582696539007530}
+{"event": "complete", "kind": "write_back", "latency_ms": 42.00631007552147, "op_id": 35, "time_ns": 1795582696539231330}
+{"blocks": 4, "bytes": 22683648, "event": "submit", "kind": "write_back", "op_ids": [36], "time_ns": 1795582696541840640}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [37], "time_ns": 1795582696542482540}
+{"device_active_blocks": 6, "device_cached_blocks": 1, "device_empty_blocks": 1, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 10, "host_evictions": 40, "host_free_blocks": 0, "host_pinned_blocks": 4, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582696716571560}
+{"event": "complete", "kind": "write_back", "latency_ms": 174.95607025921345, "op_id": 36, "time_ns": 1795582696716793460}
+{"event": "complete", "kind": "snapshot", "latency_ms": 174.31160062551498, "op_id": 37, "time_ns": 1795582696716887890}
+{"blocks": 2, "bytes": 19537920, "event": "submit", "kind": "write_back", "op_ids": [38], "time_ns": 1795582696718660750}
+{"device_active_blocks": 6, "device_cached_blocks": 1, "device_empty_blocks": 1, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 12, "host_evictions": 42, "host_free_blocks": 0, "host_pinned_blocks": 8, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582696832736180}
+{"event": "complete", "kind": "write_back", "latency_ms": 114.2825298011303, "op_id": 38, "time_ns": 1795582696832941330}
+{"blocks": 2, "bytes": 19537920, "event": "submit", "kind": "write_back", "op_ids": [39], "time_ns": 1795582696834627380}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 12, "host_evictions": 44, "host_free_blocks": 0, "host_pinned_blocks": 8, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582696875151630}
+{"event": "complete", "kind": "write_back", "latency_ms": 40.735580027103424, "op_id": 39, "time_ns": 1795582696875361040}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 44, "host_free_blocks": 0, "host_pinned_blocks": 8, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582696915001790}
+{"device_active_blocks": 6, "device_cached_blocks": 1, "device_empty_blocks": 1, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 8, "host_evictions": 50, "host_free_blocks": 0, "host_pinned_blocks": 8, "retracted_requests": 2, "snapshot_free_blocks": 19, "time_ns": 1795582696915579190}
+{"blocks": 6, "bytes": 25829376, "event": "submit", "kind": "write_back", "op_ids": [40], "time_ns": 1795582696925825820}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.16729999333620071, "op_id": 40, "time_ns": 1795582696925990220}
+{"device_active_blocks": 6, "device_cached_blocks": 1, "device_empty_blocks": 1, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 50, "host_free_blocks": 0, "host_pinned_blocks": 14, "retracted_requests": 2, "snapshot_free_blocks": 19, "time_ns": 1795582696926642040}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [41], "time_ns": 1795582696927383360}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.16782060265541077, "op_id": 41, "time_ns": 1795582696927550220}
+{"device_active_blocks": 8, "device_cached_blocks": 0, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 50, "host_free_blocks": 0, "host_pinned_blocks": 14, "retracted_requests": 2, "snapshot_free_blocks": 19, "time_ns": 1795582696928451070}
+{"blocks": 5, "bytes": 40648848, "event": "submit", "kind": "restore", "op_ids": [42], "time_ns": 1795582696941146420}
+{"event": "complete", "kind": "restore", "latency_ms": 0.17436034977436066, "op_id": 42, "time_ns": 1795582696941319000}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [43], "time_ns": 1795582696943839890}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 50, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582696985000400}
+{"event": "complete", "kind": "restore", "latency_ms": 41.376760229468346, "op_id": 43, "time_ns": 1795582696985215310}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [44], "time_ns": 1795582696987342390}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [45], "time_ns": 1795582696987957250}
+{"device_active_blocks": 8, "device_cached_blocks": 0, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 53, "host_free_blocks": 0, "host_pinned_blocks": 3, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697161092850}
+{"event": "complete", "kind": "write_back", "latency_ms": 173.96730929613113, "op_id": 44, "time_ns": 1795582697161307590}
+{"event": "complete", "kind": "snapshot", "latency_ms": 173.3510298654437, "op_id": 45, "time_ns": 1795582697161410820}
+{"blocks": 2, "bytes": 19537920, "event": "submit", "kind": "write_back", "op_ids": [46], "time_ns": 1795582697163103700}
+{"device_active_blocks": 8, "device_cached_blocks": 0, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 12, "host_evictions": 55, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697278103400}
+{"event": "complete", "kind": "write_back", "latency_ms": 115.20969029515982, "op_id": 46, "time_ns": 1795582697278311600}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [47], "time_ns": 1795582697279559520}
+{"blocks": 2, "bytes": 19537920, "event": "submit", "kind": "write_back", "op_ids": [49], "time_ns": 1795582697280697650}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [48], "time_ns": 1795582697282942290}
+{"device_active_blocks": 8, "device_cached_blocks": 0, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 12, "host_evictions": 57, "host_free_blocks": 0, "host_pinned_blocks": 12, "retracted_requests": 2, "snapshot_free_blocks": 19, "time_ns": 1795582697324547430}
+{"event": "complete", "kind": "snapshot", "latency_ms": 45.21587956696749, "op_id": 47, "time_ns": 1795582697324774320}
+{"event": "complete", "kind": "write_back", "latency_ms": 44.07813958823681, "op_id": 49, "time_ns": 1795582697324867600}
+{"event": "complete", "kind": "restore", "latency_ms": 41.833650320768356, "op_id": 48, "time_ns": 1795582697324935930}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 57, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697366174130}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [50], "time_ns": 1795582697368262720}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [51], "time_ns": 1795582697368888670}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [52], "time_ns": 1795582697370833570}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 60, "host_free_blocks": 0, "host_pinned_blocks": 9, "retracted_requests": 2, "snapshot_free_blocks": 19, "time_ns": 1795582697410910000}
+{"event": "complete", "kind": "write_back", "latency_ms": 42.871490120887756, "op_id": 50, "time_ns": 1795582697411132150}
+{"event": "complete", "kind": "snapshot", "latency_ms": 42.24420990794897, "op_id": 51, "time_ns": 1795582697411225770}
+{"event": "complete", "kind": "restore", "latency_ms": 40.299960412085056, "op_id": 52, "time_ns": 1795582697411294830}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [53], "time_ns": 1795582697413617280}
+{"device_active_blocks": 8, "device_cached_blocks": 0, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 60, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697454422010}
+{"event": "complete", "kind": "restore", "latency_ms": 41.02055076509714, "op_id": 53, "time_ns": 1795582697454636260}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [54], "time_ns": 1795582697455636140}
+{"device_active_blocks": 6, "device_cached_blocks": 2, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 60, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697496452380}
+{"event": "complete", "kind": "snapshot", "latency_ms": 41.03774018585682, "op_id": 54, "time_ns": 1795582697496663270}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [55], "time_ns": 1795582697499041920}
+{"device_active_blocks": 8, "device_cached_blocks": 0, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 60, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697539748660}
+{"event": "complete", "kind": "restore", "latency_ms": 40.91791994869709, "op_id": 55, "time_ns": 1795582697539958500}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [56], "time_ns": 1795582697540946210}
+{"device_active_blocks": 3, "device_cached_blocks": 5, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 8, "host_evictions": 66, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697582329650}
+{"event": "complete", "kind": "snapshot", "latency_ms": 41.5954003110528, "op_id": 56, "time_ns": 1795582697582540910}
+{"blocks": 6, "bytes": 25829376, "event": "submit", "kind": "write_back", "op_ids": [57], "time_ns": 1795582697585180500}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [58], "time_ns": 1795582697587167380}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 6, "host_evictions": 68, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697627204290}
+{"event": "complete", "kind": "write_back", "latency_ms": 42.24556032568216, "op_id": 57, "time_ns": 1795582697627423090}
+{"event": "complete", "kind": "restore", "latency_ms": 40.25685042142868, "op_id": 58, "time_ns": 1795582697627516650}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 12, "host_evictions": 68, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697627918510}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [60], "time_ns": 1795582697631576380}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.1217396929860115, "op_id": 60, "time_ns": 1795582697631697000}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 12, "host_evictions": 68, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697632377290}
+{"blocks": 2, "bytes": 19537920, "event": "submit", "kind": "write_back", "op_ids": [59], "time_ns": 1795582697637517030}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.1555895432829857, "op_id": 59, "time_ns": 1795582697637670980}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 68, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697638503810}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [61], "time_ns": 1795582697647315600}
+{"event": "complete", "kind": "restore", "latency_ms": 0.1276303082704544, "op_id": 61, "time_ns": 1795582697647441840}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 68, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697647989740}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [62], "time_ns": 1795582697650595560}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.11083018034696579, "op_id": 62, "time_ns": 1795582697650705940}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 68, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697651287750}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [63], "time_ns": 1795582697660357350}
+{"event": "complete", "kind": "restore", "latency_ms": 0.176919624209404, "op_id": 63, "time_ns": 1795582697660533200}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 68, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697661041750}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [64], "time_ns": 1795582697663345020}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.16475003212690353, "op_id": 64, "time_ns": 1795582697663509160}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 68, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697664085470}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [65], "time_ns": 1795582697673807110}
+{"event": "complete", "kind": "restore", "latency_ms": 0.12380070984363556, "op_id": 65, "time_ns": 1795582697673929570}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 68, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582697714697600}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 71, "host_free_blocks": 0, "host_pinned_blocks": 3, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697715104620}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [66], "time_ns": 1795582697722919700}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.17581041902303696, "op_id": 66, "time_ns": 1795582697723093680}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 71, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697723739650}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [67], "time_ns": 1795582697725561640}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.16433000564575195, "op_id": 67, "time_ns": 1795582697725725010}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 71, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697726288770}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [68], "time_ns": 1795582697735656890}
+{"event": "complete", "kind": "restore", "latency_ms": 0.1707291230559349, "op_id": 68, "time_ns": 1795582697735826290}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 71, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697736348360}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [69], "time_ns": 1795582697738384620}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.1536402851343155, "op_id": 69, "time_ns": 1795582697738537540}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 71, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697739103180}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [70], "time_ns": 1795582697747467160}
+{"event": "complete", "kind": "restore", "latency_ms": 0.18612947314977646, "op_id": 70, "time_ns": 1795582697747652360}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 71, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582697788961670}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 74, "host_free_blocks": 0, "host_pinned_blocks": 3, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697789349950}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [71], "time_ns": 1795582697794691080}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.1712702214717865, "op_id": 71, "time_ns": 1795582697794860130}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 74, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697795472950}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [72], "time_ns": 1795582697796824700}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.1118900254368782, "op_id": 72, "time_ns": 1795582697796935720}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 74, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697797516380}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [73], "time_ns": 1795582697805299290}
+{"event": "complete", "kind": "restore", "latency_ms": 0.12549012899398804, "op_id": 73, "time_ns": 1795582697805423460}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 74, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697805944660}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [74], "time_ns": 1795582697807856800}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.1682499423623085, "op_id": 74, "time_ns": 1795582697808024460}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 74, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697808576220}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [75], "time_ns": 1795582697816649570}
+{"event": "complete", "kind": "restore", "latency_ms": 0.17931964248418808, "op_id": 75, "time_ns": 1795582697816827710}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 74, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697817328080}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [76], "time_ns": 1795582697819669900}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.1133400946855545, "op_id": 76, "time_ns": 1795582697819782610}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 74, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697820349120}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [77], "time_ns": 1795582697827963270}
+{"event": "complete", "kind": "restore", "latency_ms": 0.12458022683858871, "op_id": 77, "time_ns": 1795582697828086480}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 74, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582697869194750}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 3, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697869583270}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [78], "time_ns": 1795582697874902050}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.17172936350107193, "op_id": 78, "time_ns": 1795582697875071470}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697875671640}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [79], "time_ns": 1795582697877364650}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.16545969992876053, "op_id": 79, "time_ns": 1795582697877529560}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697878094470}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [80], "time_ns": 1795582697885175020}
+{"event": "complete", "kind": "restore", "latency_ms": 0.17681997269392014, "op_id": 80, "time_ns": 1795582697885350250}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697885851800}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [81], "time_ns": 1795582697888386030}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.16471929848194122, "op_id": 81, "time_ns": 1795582697888550300}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697889101670}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [82], "time_ns": 1795582697898118750}
+{"event": "complete", "kind": "restore", "latency_ms": 0.17708074301481247, "op_id": 82, "time_ns": 1795582697898294400}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697898795340}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [83], "time_ns": 1795582697900961150}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.16433000564575195, "op_id": 83, "time_ns": 1795582697901124630}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697901677730}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [84], "time_ns": 1795582697910596330}
+{"event": "complete", "kind": "restore", "latency_ms": 0.12336019426584244, "op_id": 84, "time_ns": 1795582697910718310}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697911232760}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [85], "time_ns": 1795582697913206010}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.1121005043387413, "op_id": 85, "time_ns": 1795582697913317270}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697913884230}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [86], "time_ns": 1795582697922475530}
+{"event": "complete", "kind": "restore", "latency_ms": 0.17969030886888504, "op_id": 86, "time_ns": 1795582697922653660}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697923154840}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [87], "time_ns": 1795582697925476390}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.1660902053117752, "op_id": 87, "time_ns": 1795582697925641680}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697926198440}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [88], "time_ns": 1795582697934932250}
+{"event": "complete", "kind": "restore", "latency_ms": 0.17928984016180038, "op_id": 88, "time_ns": 1795582697935110050}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697935607660}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [89], "time_ns": 1795582697937644280}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.16687996685504913, "op_id": 89, "time_ns": 1795582697937810480}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697938370100}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [90], "time_ns": 1795582697946826820}
+{"event": "complete", "kind": "restore", "latency_ms": 0.16434956341981888, "op_id": 90, "time_ns": 1795582697946990050}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697947508200}
+{"blocks": 0, "bytes": 144, "event": "submit", "kind": "snapshot", "op_ids": [91], "time_ns": 1795582697949793830}
+{"event": "complete", "kind": "snapshot", "latency_ms": 0.1652296632528305, "op_id": 91, "time_ns": 1795582697949958310}
+{"device_active_blocks": 4, "device_cached_blocks": 4, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 77, "host_free_blocks": 0, "host_pinned_blocks": 6, "retracted_requests": 1, "snapshot_free_blocks": 19, "time_ns": 1795582697950508430}
+{"blocks": 3, "bytes": 21110928, "event": "submit", "kind": "restore", "op_ids": [92], "time_ns": 1795582697959653470}
+{"event": "complete", "kind": "restore", "latency_ms": 0.12668967247009277, "op_id": 92, "time_ns": 1795582697959778640}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 11, "host_evictions": 80, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582698001106300}
+{"blocks": 3, "bytes": 21110784, "event": "submit", "kind": "write_back", "op_ids": [93], "time_ns": 1795582698007762000}
+{"event": "complete", "kind": "write_back", "latency_ms": 0.12133922427892685, "op_id": 93, "time_ns": 1795582698007881030}
+{"device_active_blocks": 0, "device_cached_blocks": 8, "device_empty_blocks": 0, "device_total_blocks": 8, "event": "gauge", "host_cached_blocks": 14, "host_evictions": 80, "host_free_blocks": 0, "host_pinned_blocks": 0, "retracted_requests": 0, "snapshot_free_blocks": 19, "time_ns": 1795582698008358480}
