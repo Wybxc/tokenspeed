@@ -115,6 +115,7 @@ public:
     std::int32_t HostPoolCachedBlocks() const { return coordinator_.NumHostCachedBlocks(); }
     std::int32_t HostPoolFreeBlocks() const { return coordinator_.NumFreeHostLcmBlocks(); }
     std::int32_t HostPoolPinnedBlocks() const { return coordinator_.NumPinnedHostCachedBlocks(); }
+    std::int64_t HostPoolEvictions() const { return coordinator_.HostEvictions(); }
     // Published tail boundaries the probe can enumerate, and how many the
     // per-prior cap has dropped since start.
     std::size_t TailEntries() const { return coordinator_.NumTailEntries(); }
