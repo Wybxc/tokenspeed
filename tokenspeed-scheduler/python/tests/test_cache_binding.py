@@ -153,6 +153,8 @@ def test_snapshot_pool_is_stated_explicitly():
     assert scheduler.snapshot_pool_free_blocks() == 8
     assert scheduler.retracted_size() == 0
     assert scheduler.host_pool_pinned_blocks() == 0
+    assert scheduler.host_pool_free_blocks() == 0
+    assert scheduler.host_pool_evictions() == 0
     cfg.role = ts.SchedulerConfig.Role.P
     cfg.cache_groups[0].transfer_policy = ts.CacheTransferPolicy.FullSuffix
     with pytest.raises(ValueError, match="P role"):
