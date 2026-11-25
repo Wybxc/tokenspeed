@@ -51,7 +51,7 @@ from tokenspeed_kernel.ops.conv._triton.sconv import (
     _inkling_ring_sconv_prefill_kernel,
     select_prefill_config,
 )
-from tokenspeed_kernel.platform import pdl_enabled
+from tokenspeed_kernel.platform import current_platform, pdl_enabled
 from tokenspeed_kernel.registry import Priority, register_kernel
 from tokenspeed_kernel.signature import format_signatures
 
@@ -66,6 +66,18 @@ __all__ = [
 ]
 
 _CONV_DTYPES = {torch.bfloat16, torch.float16, torch.float32}
+
+
+def _causal_conv_launch_config() -> tuple[int, int]:
+    """Return ``(BLOCK_N, num_stages)`` for causal convolution.
+
+    Triton-Ascend 3.2.0 uses more UB for the 256-wide, two-stage prefill
+    kernel than 910C provides.  3.2.1 fixes the compiler-side allocation, so
+    retain the faster launch everywhere except that older Ascend runtime.
+    """
+    if current_platform().is_npu and getattr(triton, "__version__", "") == "3.2.0":
+        return 128, 1
+    return 256, 2
 
 
 @register_kernel(
@@ -206,7 +218,8 @@ def triton_causal_conv1d_prefill(
         assert (dim, width) == weight.shape
         assert is_channel_last, "Need to run in channel-last layout"
 
-    grid = (batch_ptr.numel(), triton.cdiv(dim, 256))
+    block_n, num_stages = _causal_conv_launch_config()
+    grid = (batch_ptr.numel(), triton.cdiv(dim, block_n))
     _causal_conv1d_fwd_kernel[grid](
         # Pointers to matrices
         x,
@@ -247,8 +260,8 @@ def triton_causal_conv1d_prefill(
         USE_PAD_SLOT=pad_slot_id is not None,
         NP2_STATELEN=np2_statelen,
         BLOCK_M=prefill_metadata.block_m,
-        BLOCK_N=256,
-        num_stages=2,
+        BLOCK_N=block_n,
+        num_stages=num_stages,
         ENABLE_PDL=enable_pdl,
         **({"launch_pdl": True} if enable_pdl else {}),
     )
@@ -419,6 +432,7 @@ def triton_causal_conv1d_update(
     else:
         stride_output_state_indices_seq = stride_output_state_indices_step = 0
 
+    block_n, _ = _causal_conv_launch_config()
     _causal_conv1d_update_kernel[grid](
         # Pointers to matrices
         x,
@@ -466,7 +480,7 @@ def triton_causal_conv1d_update(
         IS_SPEC_DECODING=num_accepted_tokens is not None,
         NP2_STATELEN=np2_statelen,
         USE_PAD_SLOT=pad_slot_id is not None,
-        BLOCK_N=256,
+        BLOCK_N=block_n,
         SAVE_INTERMEDIATE=intermediate_conv_window is not None,
         HAS_OUTPUT_STATE_INDICES=output_state_indices is not None,
         ENABLE_PDL=enable_pdl,
